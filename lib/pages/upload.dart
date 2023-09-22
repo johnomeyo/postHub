@@ -71,15 +71,115 @@ class _UploadState extends State<Upload> {
                 color: Colors.transparent,
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: const Center(
-                child: Icon(
-                  Icons.file_upload_outlined,
-                  size: 30,
+              child: Center(
+                child: GestureDetector(
+                  onTap: () => showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                            title: Text(
+                              "Choose an image from...!!!",
+                              style: GoogleFonts.lato(
+                                  textStyle: const TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w500)),
+                            ),
+                            content: SingleChildScrollView(
+                              child: Row(
+                                children: [
+                                  GestureDetector(
+                                    // onTap: () async {
+                                    //   selectedPath =
+                                    //       await selectImageFromGallery();
+                                    //   if (selectedPath != "") {
+                                    //     Navigator.pop(context);
+                                    //     setState(() {});
+                                    //   } else {
+                                    //     ScaffoldMessenger.of(
+                                    //             context)
+                                    //         .showSnackBar(
+                                    //             const SnackBar(
+                                    //                 content: Text(
+                                    //                     "No image selected")));
+                                    //   }
+                                    // },
+                                    child: Card(
+                                      child: Column(
+                                        children: [
+                                          Image.asset(
+                                            "assets/gallery.png",
+                                            height: 100,
+                                            width: 100,
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                bottom: 10),
+                                            child: Text(
+                                              'Gallery',
+                                              style: GoogleFonts.lato(
+                                                  textStyle: const TextStyle(
+                                                      fontSize: 15,
+                                                      fontWeight:
+                                                          FontWeight.w500)),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  GestureDetector(
+                                    // onTap: () async {
+                                    //   await selectImageFromCamera();
+                                    //   if (selectedPath != "") {
+                                    //     Navigator.pop(context);
+                                    //     setState(() {});
+                                    //   } else {
+                                    //     ScaffoldMessenger.of(
+                                    //             context)
+                                    //         .showSnackBar(
+                                    //             const SnackBar(
+                                    //                 content: Text(
+                                    //                     "No image selected")));
+                                    //   }
+                                    // },
+                                    child: Card(
+                                      child: Column(
+                                        children: [
+                                          Image.asset(
+                                            "assets/camera.png",
+                                            height: 100,
+                                            width: 100,
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                bottom: 10),
+                                            child: Text(
+                                              'Camera',
+                                              style: GoogleFonts.lato(
+                                                  textStyle: const TextStyle(
+                                                      fontSize: 15,
+                                                      fontWeight:
+                                                          FontWeight.w500)),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          )),
+                  child: const Icon(
+                    Icons.file_upload_outlined,
+                    size: 30,
+                  ),
                 ),
               ),
             ),
-            const SizedBox(height: 30,),
-            Spacer(),
+            const SizedBox(
+              height: 30,
+            ),
+            const Spacer(),
             Container(
               width: double.infinity,
               decoration: BoxDecoration(
@@ -90,7 +190,9 @@ class _UploadState extends State<Upload> {
                     child: Text(
                   "Post",
                   style: GoogleFonts.lato(
-                      fontWeight: FontWeight.bold, letterSpacing: 1),
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 1),
                 )),
               ),
             )
