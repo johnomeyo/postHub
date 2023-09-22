@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:posthub/auth/sign_up.dart';
+import 'package:posthub/auth/sign_in.dart';
 import 'package:posthub/components/alpha.dart';
 
 class HomePage extends StatelessWidget {
@@ -45,9 +45,9 @@ class HomePage extends StatelessWidget {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const SignUp()));
+                                    builder: (context) => const LoginPage()));
                           },
-                          icon: const Icon(Icons.person_outline)),
+                          icon: const Icon(Icons.person_2_outlined)),
                     )
                   ],
                 ),
