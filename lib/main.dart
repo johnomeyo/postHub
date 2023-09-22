@@ -53,16 +53,14 @@ class _HomeState extends State<Home> {
             backgroundColor: Colors.transparent,
             color: Colors.white,
             activeColor: Colors.white,
-            // textStyle: GoogleFonts.lato(),
-
             tabs: const [
               GButton(
                 icon: Icons.dashboard,
                 text: "Feed",
               ),
               GButton(
-                icon: Icons.add,
-                text: "Upload",
+                icon: Icons.camera_alt_outlined,
+                text: "Post",
               ),
               GButton(
                 icon: Icons.person_2_outlined,
