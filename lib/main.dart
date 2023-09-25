@@ -1,10 +1,14 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:posthub/firebase_options.dart';
 import 'package:posthub/pages/home_page.dart';
 import 'package:posthub/pages/profile.dart';
 import 'package:posthub/pages/upload.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MaterialApp(home: MyApp()));
 }
 

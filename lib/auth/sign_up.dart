@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:posthub/auth/sign_in.dart';
@@ -14,6 +15,15 @@ class _SignUpState extends State<SignUp> {
   final emailController = TextEditingController();
 
   final passwordController = TextEditingController();
+  void signUp() async {
+    try {
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: emailController.text.trim(),
+          password: passwordController.text.trim());
+    } catch (e) {
+      debugPrint("The error is $e");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,11 +52,11 @@ class _SignUpState extends State<SignUp> {
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Text(
                     "Please enter your information below to create an account for using in the app",
-                    style: GoogleFonts.lato(color: Colors.grey.shade500, fontSize: 20),
+                    style: GoogleFonts.lato(
+                        color: Colors.grey.shade500, fontSize: 20),
                   ),
                 ),
-                
-              
+
                 //username textfield
                 Padding(
                   padding: const EdgeInsets.all(20.0),
@@ -110,7 +120,7 @@ class _SignUpState extends State<SignUp> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: GestureDetector(
-                    // onTap: signUp,
+                    onTap: signUp,
                     child: Container(
                         width: double.infinity,
                         decoration: BoxDecoration(
@@ -133,7 +143,10 @@ class _SignUpState extends State<SignUp> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                     Text("Already have an account?",style: GoogleFonts.lato(),),
+                    Text(
+                      "Already have an account?",
+                      style: GoogleFonts.lato(),
+                    ),
                     TextButton(
                         onPressed: () {
                           Navigator.push(
@@ -141,7 +154,7 @@ class _SignUpState extends State<SignUp> {
                               MaterialPageRoute(
                                   builder: ((context) => const LoginPage())));
                         },
-                        child:  Text("Log in",
+                        child: Text("Log in",
                             style: GoogleFonts.lato(
                                 color: Colors.deepOrange, fontSize: 15)))
                   ],
@@ -157,9 +170,12 @@ class _SignUpState extends State<SignUp> {
                           child: Divider(
                         color: Colors.grey.shade200,
                       )),
-                       Padding(
-                        padding:const EdgeInsets.symmetric(horizontal: 10),
-                        child: Text("Or sign up with",style: GoogleFonts.lato(),),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: Text(
+                          "Or sign up with",
+                          style: GoogleFonts.lato(),
+                        ),
                       ),
                       Expanded(
                           child: Divider(
@@ -171,21 +187,19 @@ class _SignUpState extends State<SignUp> {
                 const SizedBox(
                   height: 20,
                 ),
-                   const Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  LoginOptions(imageUrl: "assets/g.png"),
-                 
-                  SizedBox(
-                    width: 20,
-                  ),
-                   
-                  LoginOptions(
-                    imageUrl: "assets/appleios.png",
-                  ),
-                ],
-              ),
-              const SizedBox(height: 20)
+                const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    LoginOptions(imageUrl: "assets/g.png"),
+                    SizedBox(
+                      width: 20,
+                    ),
+                    LoginOptions(
+                      imageUrl: "assets/appleios.png",
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 20)
               ],
             ),
           ),

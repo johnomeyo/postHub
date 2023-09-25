@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "749062265693",
+    "project_id": "myfirebase-f2412",
+    "storage_bucket": "myfirebase-f2412.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:749062265693:android:14fb043848bb246458e6b4",
+        "android_client_info": {
+          "package_name": "com.example.posthub"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "749062265693-cjhhfqbogo33gdu1u565lvn72b7101vd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCDQTKtb3GCMDN2tIfSUCovJnEITdc6vpg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "749062265693-cjhhfqbogo33gdu1u565lvn72b7101vd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:posthub/auth/sign_up.dart';
@@ -11,6 +12,20 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  void signIn() async {
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: emailController.text.trim(),
+          password: passwordController.text.trim());
+
+      // ignore: use_build_context_synchronously
+      Scaffold.of(context).showBottomSheet(
+          (context) => const SnackBar(content: Text("Loggin Successful")));
+    } catch (e) {
+      debugPrint("The error is$e");
+    }
+  }
+
   final emailController = TextEditingController();
 
   final passwordController = TextEditingController();
@@ -110,7 +125,7 @@ class _LoginPageState extends State<LoginPage> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: GestureDetector(
-                  onTap: () {},
+                  onTap: signIn,
                   child: Container(
                       width: double.infinity,
                       decoration: BoxDecoration(
