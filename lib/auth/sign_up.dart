@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -13,15 +14,37 @@ class SignUp extends StatefulWidget {
 
 class _SignUpState extends State<SignUp> {
   final emailController = TextEditingController();
-
+  final usernameController = TextEditingController();
   final passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    usernameController.dispose();
+    super.dispose();
+  }
+
   void signUp() async {
     try {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: emailController.text.trim(),
           password: passwordController.text.trim());
+
+      await FirebaseFirestore.instance.collection("users").add({
+        'username': usernameController.text,
+        'email': emailController.text,
+        'password': passwordController.text
+      });
+// ignore: use_build_context_synchronously
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          duration: Duration(seconds: 2),
+          content: Text("Sign Up successful✅")));
     } catch (e) {
-      debugPrint("The error is $e");
+       // ignore: use_build_context_synchronously
+       ScaffoldMessenger.of(context).showSnackBar( SnackBar(
+          duration: const Duration(seconds: 2),
+          content: Text("The error is ${e.toString()}")));
     }
   }
 
@@ -65,6 +88,7 @@ class _SignUpState extends State<SignUp> {
                         color: Colors.grey.shade200,
                         borderRadius: BorderRadius.circular(10)),
                     child: TextField(
+                      style: const TextStyle(color: Colors.black),
                       // controller: fullnameController,
                       decoration: InputDecoration(
                         border: InputBorder.none,
@@ -84,6 +108,7 @@ class _SignUpState extends State<SignUp> {
                         color: Colors.grey.shade200,
                         borderRadius: BorderRadius.circular(10)),
                     child: TextField(
+                      style: const TextStyle(color: Colors.black),
                       controller: emailController,
                       decoration: InputDecoration(
                           border: InputBorder.none,
@@ -103,6 +128,7 @@ class _SignUpState extends State<SignUp> {
                         color: Colors.grey.shade200,
                         borderRadius: BorderRadius.circular(10)),
                     child: TextField(
+                      style: const TextStyle(color: Colors.black),
                       controller: passwordController,
                       decoration: InputDecoration(
                           border: InputBorder.none,

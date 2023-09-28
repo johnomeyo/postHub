@@ -22,11 +22,14 @@ class _ProfileState extends State<Profile> {
               const CircleAvatar(
                 radius: 50,
               ),
-              const Text("@astropphel"),
+              Text(
+                "@astropphel",
+                style: GoogleFonts.lato(fontWeight: FontWeight.bold),
+              ),
               const SizedBox(
                 height: 20,
               ),
-              const Text("4vr Lit😮‍💨🔥"),
+               Text("4vr Lit😮‍💨🔥",style: GoogleFonts.lato(),),
               const SizedBox(
                 height: 10,
               ),

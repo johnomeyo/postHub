@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:posthub/auth/auth.dart';
 import 'package:posthub/firebase_options.dart';
 import 'package:posthub/pages/home_page.dart';
 import 'package:posthub/pages/profile.dart';
@@ -18,8 +19,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData.light(),
-      home: const Home(),
+      theme: ThemeData.dark(),
+      home: const AuthPage(),
     );
   }
 }
