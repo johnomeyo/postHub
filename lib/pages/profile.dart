@@ -1,5 +1,10 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:posthub/services/image_selection.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -10,7 +15,7 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   final List<String> images = [];
-
+  String selectedPath = "";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,10 +23,35 @@ class _ProfileState extends State<Profile> {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const CircleAvatar(
-                radius: 50,
-              ),
+              Stack(children: [
+                CircleAvatar(
+                  radius: 50,
+                  child: selectedPath == ""
+                      ? ClipRRect(
+                          borderRadius: BorderRadius.circular(50),
+                          child: Image.asset("assets/dp.png"))
+                      : Image.file(File(selectedPath)),
+                ),
+                 Align(
+                  alignment: Alignment.bottomRight,
+                   child: IconButton(
+                    icon: const Icon(Icons.camera_alt_outlined),
+                    onPressed:  () async {
+                   await SelectImage().selectImageFromCamera();
+                   if (selectedPath != "") {
+                     Navigator.pop(context);
+                     setState(() {});
+                   } else {
+                     ScaffoldMessenger.of(context).showSnackBar(
+                         const SnackBar(content: Text("No image selected")));
+                   }
+                    },
+                     color: Colors.blue,
+                   ),
+                 ),
+              ]),
               Text(
                 "@astropphel",
                 style: GoogleFonts.lato(fontWeight: FontWeight.bold),
@@ -29,7 +59,10 @@ class _ProfileState extends State<Profile> {
               const SizedBox(
                 height: 20,
               ),
-               Text("4vr Lit😮‍💨🔥",style: GoogleFonts.lato(),),
+              Text(
+                "4vr Lit😮‍💨🔥",
+                style: GoogleFonts.lato(),
+              ),
               const SizedBox(
                 height: 10,
               ),
@@ -57,23 +90,25 @@ class _ProfileState extends State<Profile> {
                           )),
                 )
               else
-                Column(
-                  children: [
-                    const SizedBox(
-                      height: 50,
-                    ),
-                    Image.asset(
-                      "assets/oops.png",
-                      height: 150,
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Text(
-                      "Ooops!!! Seems you haven't posted yet😪",
-                      style: GoogleFonts.lato(fontWeight: FontWeight.bold),
-                    )
-                  ],
+                Center(
+                  child: Column(
+                    children: [
+                      const SizedBox(
+                        height: 50,
+                      ),
+                      Image.asset(
+                        "assets/oops.png",
+                        height: 150,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                        "Ooops!!! Seems you haven't posted yet😪",
+                        style: GoogleFonts.lato(fontWeight: FontWeight.bold),
+                      )
+                    ],
+                  ),
                 )
             ],
           ),

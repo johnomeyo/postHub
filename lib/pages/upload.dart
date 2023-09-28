@@ -4,7 +4,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:posthub/services/image_selection.dart';
 
 class Upload extends StatefulWidget {
   const Upload({super.key});
@@ -20,26 +20,6 @@ class _UploadState extends State<Upload> {
   void dispose() {
     descriptionController.dispose();
     super.dispose();
-  }
-
-  selectImageFromGallery() async {
-    XFile? file = await ImagePicker()
-        .pickImage(source: ImageSource.gallery, imageQuality: 10);
-    if (file != null) {
-      return file.path;
-    } else {
-      return "";
-    }
-  }
-
-  selectImageFromCamera() async {
-    XFile? file = await ImagePicker()
-        .pickImage(source: ImageSource.camera, imageQuality: 10);
-    if (file != null) {
-      return file.path;
-    } else {
-      return "";
-    }
   }
 
   @override
@@ -120,8 +100,8 @@ class _UploadState extends State<Upload> {
                                       children: [
                                         GestureDetector(
                                           onTap: () async {
-                                            selectedPath =
-                                                await selectImageFromGallery();
+                                            selectedPath = await SelectImage()
+                                                .selectImageFromGallery();
                                             if (selectedPath != "") {
                                               Navigator.pop(context);
                                               setState(() {});
@@ -161,8 +141,8 @@ class _UploadState extends State<Upload> {
                                         ),
                                         GestureDetector(
                                           onTap: () async {
-                                            selectedPath =
-                                                await selectImageFromCamera();
+                                            selectedPath = await SelectImage()
+                                                .selectImageFromCamera();
                                             if (selectedPath != "") {
                                               Navigator.pop(context);
                                               setState(() {});
@@ -211,10 +191,16 @@ class _UploadState extends State<Upload> {
                       ),
                     ),
                   )
-                : Image.file(
-                    File(selectedPath),
-                    height: 200,
+                : Container(
                     width: double.infinity,
+                    height: 250,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      image: DecorationImage(
+                        image: FileImage(File(selectedPath)),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
                   ),
             const SizedBox(
               height: 30,
