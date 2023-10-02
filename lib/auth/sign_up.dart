@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -36,13 +38,11 @@ class _SignUpState extends State<SignUp> {
         'email': emailController.text,
         'password': passwordController.text
       });
-// ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           duration: Duration(seconds: 2),
           content: Text("Sign Up successful✅")));
     } catch (e) {
-       // ignore: use_build_context_synchronously
-       ScaffoldMessenger.of(context).showSnackBar( SnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           duration: const Duration(seconds: 2),
           content: Text("The error is ${e.toString()}")));
     }
