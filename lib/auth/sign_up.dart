@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:posthub/auth/sign_in.dart';
 import 'package:posthub/components/beta.dart';
+// import 'package:posthub/models/user_model.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -28,16 +29,21 @@ class _SignUpState extends State<SignUp> {
   }
 
   void signUp() async {
+    // UserModel userModel = UserModel(
+    //     email: emailController.text.trim(),
+    //     uid: FirebaseAuth.instance.currentUser!.uid,
+    //     photoUrl: "photoUrl",
+    //     username: usernameController.text,
+    //     posts: []);
     try {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: emailController.text.trim(),
           password: passwordController.text.trim());
 
-      await FirebaseFirestore.instance.collection("users").add({
-        'username': usernameController.text,
-        'email': emailController.text,
-        'password': passwordController.text
-      });
+      await FirebaseFirestore.instance.collection("users").add(
+        {"email": emailController.text.trim()},
+      );
+
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           duration: Duration(seconds: 2),
           content: Text("Sign Up successful✅")));
