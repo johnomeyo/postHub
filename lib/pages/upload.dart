@@ -2,6 +2,8 @@
 
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:posthub/services/image_selection.dart';
@@ -16,6 +18,7 @@ class Upload extends StatefulWidget {
 class _UploadState extends State<Upload> {
   final descriptionController = TextEditingController();
   String selectedPath = "";
+  String imageUrl = "";
   @override
   void dispose() {
     descriptionController.dispose();
@@ -206,20 +209,53 @@ class _UploadState extends State<Upload> {
               height: 30,
             ),
             const Spacer(),
-            Container(
-              width: double.infinity,
-              decoration: BoxDecoration(
-                  color: Colors.black, borderRadius: BorderRadius.circular(10)),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 15),
-                child: Center(
-                    child: Text(
-                  "Post",
-                  style: GoogleFonts.lato(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 1),
-                )),
+            GestureDetector(
+              onTap: () async {
+                if (selectedPath != "") {
+                  String uniqueName =
+                      DateTime.now().millisecondsSinceEpoch.toString();
+                  Reference referenceRoot = FirebaseStorage.instance.ref();
+                  Reference referencDirImages = referenceRoot.child("images");
+                  Reference referenceImageToUpload =
+                      referencDirImages.child(uniqueName);
+                  try {
+                    await referenceImageToUpload.putFile(File(selectedPath));
+                    imageUrl = await referenceImageToUpload.getDownloadURL();
+
+                    await FirebaseFirestore.instance.collection("posts").add({
+                      "caption": descriptionController.text,
+                      "imageUrl": imageUrl,
+                    });
+                  } catch (error) {
+                    // showBottomSheet(
+                    //     context: context,
+                    //     builder: (context) =>
+                    //         SnackBar(content: Text("The error is $error")));
+                    print(error.toString());
+                  }
+                } else {
+                  showBottomSheet(
+                      context: context,
+                      builder: (context) => const SnackBar(
+                          content: Text("Please select an image")));
+                }
+              },
+              child: Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.circular(10)),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 15),
+                  child: Center(
+                      child: Text(
+                    "Post",
+                    style: GoogleFonts.lato(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        letterSpacing: 1),
+                  )),
+                ),
               ),
             )
           ],
