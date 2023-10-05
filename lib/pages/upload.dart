@@ -6,7 +6,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:posthub/main.dart';
 import 'package:posthub/services/image_selection.dart';
+// import 'package:fluttertoast/fluttertoast.dart';
 
 class Upload extends StatefulWidget {
   const Upload({super.key});
@@ -19,6 +21,19 @@ class _UploadState extends State<Upload> {
   final descriptionController = TextEditingController();
   String selectedPath = "";
   String imageUrl = "";
+
+  // void showToast(BuildContext context, String message) {
+  //   Fluttertoast.showToast(
+  //     msg: message,
+  //     toastLength: Toast.LENGTH_SHORT,
+  //     gravity: ToastGravity.BOTTOM,
+  //     timeInSecForIosWeb: 1,
+  //     backgroundColor: Colors.black54,
+  //     textColor: Colors.white,
+  //     fontSize: 16.0,
+  //   );
+  // }
+
   @override
   void dispose() {
     descriptionController.dispose();
@@ -226,12 +241,18 @@ class _UploadState extends State<Upload> {
                       "caption": descriptionController.text,
                       "imageUrl": imageUrl,
                     });
+                    // showToast(context, "Post sent successfully✅");
+                    showBottomSheet(
+                        context: context,
+                        builder: (context) => const SnackBar(
+                            content: Text("Post sent successfully✅")));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => const Home()));
                   } catch (error) {
-                    // showBottomSheet(
-                    //     context: context,
-                    //     builder: (context) =>
-                    //         SnackBar(content: Text("The error is $error")));
-                    print(error.toString());
+                    showBottomSheet(
+                        context: context,
+                        builder: (context) =>
+                            SnackBar(content: Text("The error is $error")));
                   }
                 } else {
                   showBottomSheet(
