@@ -1,22 +1,34 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class Post extends StatelessWidget {
-  const Post(
+class Post extends StatefulWidget {
+  Post(
       {super.key,
       required this.caption,
       required this.imageUrl,
       required this.likes});
   final String caption;
   final String imageUrl;
-  final String likes;
+  int likes = 0;
 
+  @override
+  State<Post> createState() => _PostState();
+}
+
+class _PostState extends State<Post> {
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5),
       child: Container(
-        decoration: BoxDecoration(border: Border.all(width: 1, color: Colors.grey.shade600,),borderRadius: BorderRadius.circular(10)),
+        decoration: BoxDecoration(
+            border: Border.all(
+              width: 1,
+              color: Colors.grey.shade600,
+            ),
+            borderRadius: BorderRadius.circular(10)),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
@@ -26,11 +38,11 @@ class Post extends StatelessWidget {
                 children: [
                   CircleAvatar(
                     radius: 20,
-                    
                     child: ClipOval(
                       child: Image.network(
                         "https://images.unsplash.com/photo-1533738363-b7f9aef128ce?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1635&q=80",
-                        height: 40,width: 40,
+                        height: 40,
+                        width: 40,
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -48,7 +60,7 @@ class Post extends StatelessWidget {
                 height: 10,
               ),
               Text(
-                caption,
+                widget.caption,
                 style: GoogleFonts.lato(fontSize: 15),
               ),
               const SizedBox(height: 10),
@@ -58,7 +70,8 @@ class Post extends StatelessWidget {
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
                     image: DecorationImage(
-                        image: NetworkImage(imageUrl), fit: BoxFit.cover)),
+                        image: NetworkImage(widget.imageUrl),
+                        fit: BoxFit.cover)),
               ),
               const SizedBox(
                 height: 10,
@@ -69,7 +82,7 @@ class Post extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        likes,
+                        widget.likes.toString(),
                         style: GoogleFonts.lato(fontSize: 20),
                       ),
                       IconButton(
@@ -81,7 +94,8 @@ class Post extends StatelessWidget {
                     width: 10,
                   ),
                   IconButton(
-                      onPressed: () {}, icon: const Icon(Icons.comment_outlined))
+                      onPressed: () {},
+                      icon: const Icon(Icons.comment_outlined))
                 ],
               )
             ],

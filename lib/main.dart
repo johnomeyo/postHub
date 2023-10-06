@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData.light(),
+      theme: ThemeData.dark(),
       home: const Home(),
     );
   }
@@ -43,11 +43,10 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: pages[selectedIndex],
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Container(
-          decoration: BoxDecoration(
-              color: Colors.black, borderRadius: BorderRadius.circular(10)),
+      bottomNavigationBar: Container(
+        color: Colors.black,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
           child: GNav(
             gap: 8,
             onTabChange: (value) {
@@ -58,9 +57,13 @@ class _HomeState extends State<Home> {
             backgroundColor: Colors.transparent,
             color: Colors.white,
             activeColor: Colors.white,
+            tabBackgroundColor: Colors.grey.shade900,
+            tabActiveBorder: Border.all(
+              width: 1,
+            ),
             tabs: const [
               GButton(
-                icon: Icons.dashboard,
+                icon: Icons.home_outlined,
                 text: "Feed",
               ),
               GButton(

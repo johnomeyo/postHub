@@ -3,6 +3,7 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -22,17 +23,6 @@ class _UploadState extends State<Upload> {
   String selectedPath = "";
   String imageUrl = "";
 
-  // void showToast(BuildContext context, String message) {
-  //   Fluttertoast.showToast(
-  //     msg: message,
-  //     toastLength: Toast.LENGTH_SHORT,
-  //     gravity: ToastGravity.BOTTOM,
-  //     timeInSecForIosWeb: 1,
-  //     backgroundColor: Colors.black54,
-  //     textColor: Colors.white,
-  //     fontSize: 16.0,
-  //   );
-  // }
 
   @override
   void dispose() {
@@ -240,12 +230,11 @@ class _UploadState extends State<Upload> {
                     await FirebaseFirestore.instance.collection("posts").add({
                       "caption": descriptionController.text,
                       "imageUrl": imageUrl,
+                      "uploader": FirebaseAuth.instance.currentUser!.uid,
                     });
-                    // showToast(context, "Post sent successfully✅");
-                    showBottomSheet(
-                        context: context,
-                        builder: (context) => const SnackBar(
-                            content: Text("Post sent successfully✅")));
+                    const CircularProgressIndicator(
+                      color: Colors.deepOrangeAccent,
+                    );
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) => const Home()));
                   } catch (error) {

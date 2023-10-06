@@ -4,7 +4,7 @@ class SelectImage {
  
    selectImageFromGallery() async {
     XFile? file = await ImagePicker()
-        .pickImage(source: ImageSource.gallery, imageQuality: 10);
+        .pickImage(source: ImageSource.gallery, imageQuality: 50);
     if (file != null) {
       return file.path;
     } else {
@@ -13,7 +13,7 @@ class SelectImage {
   }
  selectImageFromCamera() async {
     XFile? file = await ImagePicker()
-        .pickImage(source: ImageSource.camera, imageQuality: 10);
+        .pickImage(source: ImageSource.camera, imageQuality: 50);
     if (file != null) {
       
       return file.path;
