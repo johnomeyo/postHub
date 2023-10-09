@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:posthub/auth/sign_in.dart';
 import 'package:posthub/components/alpha.dart';
 import 'package:posthub/test/dummy.dart';
+import 'package:shimmer/shimmer.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -14,8 +15,10 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   String username = "";
-  final _postStream =
-      FirebaseFirestore.instance.collection("posts").snapshots();
+  final _postStream = FirebaseFirestore.instance
+      .collection("posts")
+      .orderBy("timestamp", descending: true)
+      .snapshots();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,9 +26,12 @@ class _HomePageState extends State<HomePage> {
           stream: _postStream,
           builder: (context, snapshot) {
             if (snapshot.hasError) {
-              return Text("Connection error occured");
+              return const Text("Connection error occured");
             } else if (snapshot.connectionState == ConnectionState.waiting) {
-              return Text("Loading...");
+              return Shimmer.fromColors(
+                  baseColor: Colors.grey,
+                  highlightColor: Colors.grey.shade100,
+                  child: Container());
             }
 
             var docs = snapshot.data!.docs;

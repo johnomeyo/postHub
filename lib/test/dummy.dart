@@ -19,9 +19,9 @@ class _MyWidgetState extends State<MyWidget> {
           stream: _postStream,
           builder: (context, snapshot) {
             if (snapshot.hasError) {
-              return Text("Connection error occured");
+              return const Text("Connection error occured");
             } else if (snapshot.connectionState == ConnectionState.waiting) {
-              return Text("Loading...");
+              return const Text("Loading...");
             }
 
             var docs = snapshot.data!.docs;

@@ -23,7 +23,6 @@ class _UploadState extends State<Upload> {
   String selectedPath = "";
   String imageUrl = "";
 
-
   @override
   void dispose() {
     descriptionController.dispose();
@@ -231,6 +230,7 @@ class _UploadState extends State<Upload> {
                       "caption": descriptionController.text,
                       "imageUrl": imageUrl,
                       "uploader": FirebaseAuth.instance.currentUser!.uid,
+                      "timestamp": Timestamp.now(),
                     });
                     const CircularProgressIndicator(
                       color: Colors.deepOrangeAccent,
