@@ -223,6 +223,7 @@ class _UploadState extends State<Upload> {
                   Reference referenceImageToUpload =
                       referencDirImages.child(uniqueName);
                   try {
+                    const CircularProgressIndicator();
                     await referenceImageToUpload.putFile(File(selectedPath));
                     imageUrl = await referenceImageToUpload.getDownloadURL();
 
