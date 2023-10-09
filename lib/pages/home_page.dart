@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:posthub/auth/sign_in.dart';
 import 'package:posthub/components/alpha.dart';
+import 'package:posthub/components/beta.dart';
 import 'package:posthub/test/dummy.dart';
-import 'package:shimmer/shimmer.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -28,10 +28,13 @@ class _HomePageState extends State<HomePage> {
             if (snapshot.hasError) {
               return const Text("Connection error occured");
             } else if (snapshot.connectionState == ConnectionState.waiting) {
-              return Shimmer.fromColors(
-                  baseColor: Colors.grey,
-                  highlightColor: Colors.grey.shade100,
-                  child: Container());
+              return const Column(
+                children: [
+                  MyPostsShimmer(),
+                  MyPostsShimmer(),
+                  MyPostsShimmer(),
+                ],
+              );
             }
 
             var docs = snapshot.data!.docs;
