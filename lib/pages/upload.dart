@@ -215,7 +215,8 @@ class _UploadState extends State<Upload> {
             const Spacer(),
             GestureDetector(
               onTap: () async {
-                if (selectedPath != "") {
+                if (selectedPath != "" &&
+                    descriptionController.text.isNotEmpty) {
                   String uniqueName =
                       DateTime.now().millisecondsSinceEpoch.toString();
                   Reference referenceRoot = FirebaseStorage.instance.ref();
@@ -233,9 +234,6 @@ class _UploadState extends State<Upload> {
                       "uploader": FirebaseAuth.instance.currentUser!.uid,
                       "timestamp": Timestamp.now(),
                     });
-                    const CircularProgressIndicator(
-                      color: Colors.deepOrangeAccent,
-                    );
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) => const Home()));
                   } catch (error) {

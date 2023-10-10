@@ -34,23 +34,27 @@ class _ProfileState extends State<Profile> {
                           child: Image.asset("assets/dp.png"))
                       : Image.file(File(selectedPath)),
                 ),
-                 Align(
-                  alignment: Alignment.bottomRight,
-                   child: IconButton(
+                Positioned(
+                  top: 65,
+                  left: 65,
+                  right: 5,
+                  child: IconButton(
                     icon: const Icon(Icons.camera_alt_outlined),
-                    onPressed:  () async {
-                   await SelectImage().selectImageFromCamera();
-                   if (selectedPath != "") {
-                     Navigator.pop(context);
-                     setState(() {});
-                   } else {
-                     ScaffoldMessenger.of(context).showSnackBar(
-                         const SnackBar(content: Text("No image selected")));
-                   }
+                    onPressed: () async {
+                      selectedPath =
+                          await SelectImage().selectImageFromGallery();
+                      if (selectedPath != "") {
+                        print("THE SELECTED PATH IS $selectedPath");
+                        Navigator.pop(context);
+                        setState(() {});
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text("No image selected")));
+                      }
                     },
-                     color: Colors.blue,
-                   ),
-                 ),
+                    color: Colors.blue,
+                  ),
+                ),
               ]),
               Text(
                 "@astropphel",

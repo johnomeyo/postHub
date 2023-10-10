@@ -1,5 +1,8 @@
-import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:cinema_app/pages/login.dart';
+// import 'package:crud/home.dart';
+// import 'package:crud/login_page.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:posthub/auth/sign_in.dart';
 import 'package:posthub/main.dart';
 
@@ -14,16 +17,10 @@ class AuthPage extends StatelessWidget {
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            Navigator.pushReplacement(
-                context, MaterialPageRoute(builder: (context) => const Home()));
-          } else if (snapshot.connectionState == ConnectionState.waiting) {
-            return const CircularProgressIndicator();
-          } else if (snapshot.hasError) {
-            return Center(
-              child: Text(snapshot.error.toString()),
-            );
+            return const Home();
+          } else {
+            return const LoginPage();
           }
-          return const LoginPage();
         },
       ),
     );

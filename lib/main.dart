@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:posthub/auth/auth.dart';
 // import 'package:posthub/auth/auth.dart';
 import 'package:posthub/firebase_options.dart';
 import 'package:posthub/pages/home_page.dart';
@@ -19,8 +20,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData.dark(),
-      home: const Home(),
+      theme: ThemeData.light(),
+      home: const AuthPage(),
     );
   }
 }
@@ -44,7 +45,7 @@ class _HomeState extends State<Home> {
     return Scaffold(
       body: pages[selectedIndex],
       bottomNavigationBar: Container(
-        color: Colors.black,
+        color: Colors.transparent,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: GNav(
@@ -55,12 +56,12 @@ class _HomeState extends State<Home> {
               });
             },
             backgroundColor: Colors.transparent,
-            color: Colors.white,
-            activeColor: Colors.white,
+            activeColor: Colors.orange,
             tabBackgroundColor: Colors.grey.shade900,
             tabActiveBorder: Border.all(
               width: 1,
             ),
+            padding: const EdgeInsets.all(10),
             tabs: const [
               GButton(
                 icon: Icons.home_outlined,
