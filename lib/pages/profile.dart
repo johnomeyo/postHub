@@ -25,37 +25,45 @@ class _ProfileState extends State<Profile> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Stack(children: [
-                CircleAvatar(
-                  radius: 50,
-                  child: selectedPath == ""
-                      ? ClipRRect(
-                          borderRadius: BorderRadius.circular(50),
-                          child: Image.asset("assets/dp.png"))
-                      : Image.file(File(selectedPath)),
-                ),
-                Positioned(
-                  top: 65,
-                  left: 65,
-                  right: 5,
-                  child: IconButton(
-                    icon: const Icon(Icons.camera_alt_outlined),
-                    onPressed: () async {
-                      selectedPath =
-                          await SelectImage().selectImageFromGallery();
-                      if (selectedPath != "") {
-                        print("THE SELECTED PATH IS $selectedPath");
-                        Navigator.pop(context);
-                        setState(() {});
-                      } else {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text("No image selected")));
-                      }
-                    },
-                    color: Colors.blue,
-                  ),
-                ),
-              ]),
+              Row(
+                children: [
+                  Stack(children: [
+                    CircleAvatar(
+                      radius: 50,
+                      child: selectedPath == ""
+                          ? ClipRRect(
+                              borderRadius: BorderRadius.circular(50),
+                              child: Image.asset("assets/dp.png"))
+                          : ClipRRect(
+                              borderRadius: BorderRadius.circular(50),
+                              child: Image.file(File(selectedPath))),
+                    ),
+                    Positioned(
+                      top: 65,
+                      left: 65,
+                      right: 5,
+                      child: IconButton(
+                        icon: const Icon(Icons.camera_alt_outlined),
+                        onPressed: () async {
+                          selectedPath =
+                              await SelectImage().selectImageFromGallery();
+                          if (selectedPath != "") {
+                            print("THE SELECTED PATH IS $selectedPath");
+                            Navigator.pop(context);
+                            setState(() {});
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                    content: Text("No image selected")));
+                          }
+                        },
+                        color: Colors.blue,
+                      ),
+                    ),
+                  ]),
+                  const Spacer(),
+                ],
+              ),
               Text(
                 "@astropphel",
                 style: GoogleFonts.lato(fontWeight: FontWeight.bold),

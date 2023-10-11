@@ -27,7 +27,7 @@ class MyPostsShimmer extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Shimmer.fromColors(
-                    baseColor: Colors.grey,
+                    baseColor: Colors.grey.shade300,
                     highlightColor: Colors.grey.shade100,
                     child: Container(
                       height: 300,
