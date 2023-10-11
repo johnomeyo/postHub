@@ -6,36 +6,43 @@ class SignOutButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return   IconButton(
-                      onPressed: () {
-                        showDialog(
-                            context: context,
-                            builder: (context) => AlertDialog(
-                                  content: SizedBox(
-                                    height: 100,
-                                    child: Column(
-                                      children: [
-                                        const Text(
-                                            "Are you sure you want to log out?"),
-                                        Row(
-                                          children: [
-                                            TextButton(
-                                                onPressed: () {
-                                                  Navigator.pop(context);
-                                                },
-                                                child: Text("No")),
-                                                TextButton(
-                                                onPressed: ()async {
-                                                   await FirebaseAuth.instance.signOut();
-                                                },
-                                                child: Text("Yes"))
-                                          ],
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ));
-                      },
-                      icon: const Icon(Icons.more_vert));
+    return IconButton(
+        onPressed: () {
+          showDialog(
+              context: context,
+              barrierDismissible: false,
+              builder: (context) => AlertDialog(
+                    contentPadding: const EdgeInsets.all(0),
+                    content: SizedBox(
+                      height: 100,
+                      child: Column(
+                        children: [
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          const Text("Are you sure you want to log out?"),
+                          Row(
+                            children: [
+                              const Spacer(),
+                              TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: const Text("No")),
+                              TextButton(
+                                  onPressed: () async {
+                                    await FirebaseAuth.instance.signOut();
+                                  },
+                                  child: const Text("Yes"))
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                  ));
+        },
+        icon: const Icon(
+          Icons.more_vert,
+        ));
   }
 }

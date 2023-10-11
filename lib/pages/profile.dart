@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:posthub/components/delta.dart';
 import 'package:posthub/services/image_selection.dart';
 
 class Profile extends StatefulWidget {
@@ -62,6 +63,7 @@ class _ProfileState extends State<Profile> {
                     ),
                   ]),
                   const Spacer(),
+                  SignOutButton(),
                 ],
               ),
               Text(
