@@ -3,6 +3,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:posthub/components/delta.dart';
 
 class Post extends StatefulWidget {
   Post(
@@ -20,6 +21,7 @@ class Post extends StatefulWidget {
 
 class _PostState extends State<Post> {
   final currentUserID = FirebaseAuth.instance.currentUser!.uid;
+
   bool isLiked = false;
   @override
   Widget build(BuildContext context) {
@@ -115,12 +117,7 @@ class _PostState extends State<Post> {
                   const SizedBox(
                     width: 10,
                   ),
-                  IconButton(
-                    onPressed: () {
-                      // Handle comment button press
-                    },
-                    icon: const Icon(Icons.comment_outlined),
-                  )
+                  const Comment()
                 ],
               )
             ],
