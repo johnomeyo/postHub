@@ -99,7 +99,7 @@ class _HomePageState extends State<HomePage> {
                           itemBuilder: (context, index) => Post(
                               caption: docs[index]['caption'],
                               imageUrl: docs[index]['imageUrl'],
-                              likes: 20)),
+                              likes: [])),
                     ),
                   ],
                 ),

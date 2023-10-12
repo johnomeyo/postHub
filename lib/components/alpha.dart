@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -11,13 +12,15 @@ class Post extends StatefulWidget {
       required this.likes});
   final String caption;
   final String imageUrl;
-  int likes = 0;
+  List<String> likes;
 
   @override
   State<Post> createState() => _PostState();
 }
 
 class _PostState extends State<Post> {
+  final currentUserID = FirebaseAuth.instance.currentUser!.uid;
+  bool isLiked = false;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -82,20 +85,42 @@ class _PostState extends State<Post> {
                   Row(
                     children: [
                       Text(
-                        widget.likes.toString(),
+                        widget.likes.isEmpty
+                            ? ''
+                            : widget.likes.length.toString(),
                         style: GoogleFonts.lato(fontSize: 20),
                       ),
                       IconButton(
-                          onPressed: () {},
-                          icon: const Icon(Icons.favorite_border_outlined)),
+                        onPressed: () {
+                          setState(() {
+                            isLiked = !isLiked;
+                            if (isLiked) {
+                              widget.likes.add(
+                                  currentUserID); // Replace with actual user ID
+                            } else {
+                              widget.likes.remove(
+                                  currentUserID); // Replace with actual user ID
+                            }
+                          });
+                        },
+                        icon: Icon(
+                          isLiked
+                              ? Icons.favorite
+                              : Icons.favorite_border_sharp,
+                          color: isLiked ? Colors.red : null,
+                        ),
+                      ),
                     ],
                   ),
                   const SizedBox(
                     width: 10,
                   ),
                   IconButton(
-                      onPressed: () {},
-                      icon: const Icon(Icons.comment_outlined))
+                    onPressed: () {
+                      // Handle comment button press
+                    },
+                    icon: const Icon(Icons.comment_outlined),
+                  )
                 ],
               )
             ],

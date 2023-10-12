@@ -63,7 +63,7 @@ class _ProfileState extends State<Profile> {
                     ),
                   ]),
                   const Spacer(),
-                  SignOutButton(),
+                  const SignOutButton(),
                 ],
               ),
               Text(
