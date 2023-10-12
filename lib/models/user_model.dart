@@ -21,3 +21,12 @@ class UserModel {
       };
 }
 
+class CommentModel {
+  final String userID;
+  final String text;
+  final DateTime timestamp;
+
+  CommentModel({required this.userID, required this.text, required this.timestamp});
+  Map<String, dynamic> toJson() =>
+      {"userID": userID, "text": text, "timestamp": timestamp};
+}

@@ -1,6 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:posthub/models/user_model.dart';
 
 class SignOutButton extends StatelessWidget {
   const SignOutButton({super.key});
@@ -57,8 +59,21 @@ class Comment extends StatefulWidget {
 
 class _CommentState extends State<Comment> {
   final commentController = TextEditingController();
+  final String currentUserID = FirebaseAuth.instance.currentUser!.uid;
 
-  void postComment() {}
+  void postComment(String postID, CommentModel comment) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection('posts')
+          .doc(postID)
+          .collection("comments")
+          .add(comment.toJson());
+    } catch (e) {
+      print("The error is $e");
+    }
+  }
+
+  @override
 
   @override
   Widget build(BuildContext context) {
@@ -88,6 +103,9 @@ class _CommentState extends State<Comment> {
                                 hintStyle: GoogleFonts.lato(),
                               ),
                             ),
+                            const SizedBox(
+                              height: 20,
+                            ),
                             Row(
                               children: [
                                 const Spacer(),
@@ -104,13 +122,29 @@ class _CommentState extends State<Comment> {
                                       if (commentController.text
                                           .trim()
                                           .isNotEmpty) {
-                                        postComment();
+                                        CommentModel comment = CommentModel(
+                                            userID: currentUserID,
+                                            text: commentController.text.trim(),
+                                            timestamp: DateTime.now());
+                                        postComment(currentUserID, comment);
+                                        commentController.clear();
+                                        Navigator.pop(context);
+                                        showBottomSheet(
+                                            context: context,
+                                            builder: (context) => const SnackBar(
+                                                content: Text(
+                                                    "Successfully commented✅")));
                                       } else {
                                         Navigator.pop(context);
                                         showDialog(
                                             context: context,
                                             builder: (context) =>
-                                                const AlertDialog(content: SizedBox(height:30,child: Text("The comment cannot be empty🙄")),));
+                                                const AlertDialog(
+                                                  content: SizedBox(
+                                                      height: 30,
+                                                      child: Text(
+                                                          "The comment cannot be empty🙄")),
+                                                ));
                                       }
                                     },
                                     child: const Text("Post"))
