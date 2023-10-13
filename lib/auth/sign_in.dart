@@ -13,6 +13,9 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   void signIn() async {
+    setState(() {
+      isLoggin = true;
+    });
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: emailController.text.trim(),
@@ -29,6 +32,7 @@ class _LoginPageState extends State<LoginPage> {
   final emailController = TextEditingController();
 
   final passwordController = TextEditingController();
+  bool isLoggin = false;
 
   @override
   Widget build(BuildContext context) {
@@ -68,8 +72,8 @@ class _LoginPageState extends State<LoginPage> {
                       color: Colors.grey.shade200,
                       borderRadius: BorderRadius.circular(10)),
                   child: TextField(
-                    cursorColor: Colors.black,
-                    style: GoogleFonts.lato(color: Colors.black),
+                    cursorColor: Colors.grey.shade800,
+                    style: GoogleFonts.lato(color: Colors.grey.shade800),
                     controller: emailController,
                     decoration: InputDecoration(
                         border: InputBorder.none,
@@ -89,7 +93,8 @@ class _LoginPageState extends State<LoginPage> {
                       color: Colors.grey.shade200,
                       borderRadius: BorderRadius.circular(10)),
                   child: TextField(
-                    cursorColor: Colors.black,
+                    cursorColor: Colors.grey.shade800,
+                    style: GoogleFonts.lato(color: Colors.grey.shade800),
                     controller: passwordController,
                     decoration: InputDecoration(
                         border: InputBorder.none,
@@ -133,12 +138,18 @@ class _LoginPageState extends State<LoginPage> {
                           borderRadius: BorderRadius.circular(10)),
                       child: Padding(
                         padding: const EdgeInsets.symmetric(vertical: 15),
-                        child: Text("Sign in",
-                            textAlign: TextAlign.center,
-                            style: GoogleFonts.lato(
-                              textStyle: const TextStyle(
-                                  color: Colors.white, fontSize: 20),
-                            )),
+                        child: isLoggin
+                            ? const Center(
+                                child: CircularProgressIndicator(
+                                  color: Colors.deepOrange,
+                                ),
+                              )
+                            : Text("Sign in",
+                                textAlign: TextAlign.center,
+                                style: GoogleFonts.lato(
+                                  textStyle: const TextStyle(
+                                      color: Colors.white, fontSize: 20),
+                                )),
                       )),
                 ),
               ),

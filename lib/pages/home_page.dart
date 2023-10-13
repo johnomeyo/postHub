@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:posthub/auth/sign_in.dart';
 import 'package:posthub/components/alpha.dart';
 import 'package:posthub/components/beta.dart';
+import 'package:posthub/pages/post_display_page.dart';
 import 'package:posthub/test/dummy.dart';
 
 class HomePage extends StatefulWidget {
@@ -96,10 +97,13 @@ class _HomePageState extends State<HomePage> {
                     Expanded(
                       child: ListView.builder(
                           itemCount: docs.length,
-                          itemBuilder: (context, index) => Post(
-                              caption: docs[index]['caption'],
-                              imageUrl: docs[index]['imageUrl'],
-                              likes: [])),
+                          itemBuilder: (context, index) => GestureDetector(
+                            onTap: ()=> Navigator.push(context, MaterialPageRoute(builder: (context) =>const PostDisplayPage() )),
+                            child: Post(
+                                caption: docs[index]['caption'],
+                                imageUrl: docs[index]['imageUrl'],
+                                likes: const []),
+                          )),
                     ),
                   ],
                 ),

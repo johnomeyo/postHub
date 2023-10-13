@@ -28,20 +28,25 @@ class _SignUpState extends State<SignUp> {
     super.dispose();
   }
 
+  bool isSigningUp = false;
+
   void signUp() async {
-    // UserModel userModel = UserModel(
-    //     email: emailController.text.trim(),
-    //     uid: FirebaseAuth.instance.currentUser!.uid,
-    //     photoUrl: "photoUrl",
-    //     username: usernameController.text,
-    //     posts: []);
+    setState(() {
+      isSigningUp = true;
+    });
     try {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: emailController.text.trim(),
           password: passwordController.text.trim());
 
       await FirebaseFirestore.instance.collection("users").add(
-        {"email": emailController.text.trim()},
+        {
+          "email": emailController.text.trim(),
+          "username": usernameController.text.trim(),
+          "password": passwordController.text.trim(),
+          "profileImage":
+              "https://images.unsplash.com/photo-1540331547168-8b63109225b7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1619&q=80"
+        },
       );
 
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
@@ -160,12 +165,18 @@ class _SignUpState extends State<SignUp> {
                             borderRadius: BorderRadius.circular(10)),
                         child: Padding(
                           padding: const EdgeInsets.symmetric(vertical: 15),
-                          child: Text("Register now",
-                              textAlign: TextAlign.center,
-                              style: GoogleFonts.lato(
-                                textStyle: const TextStyle(
-                                    color: Colors.white, fontSize: 20),
-                              )),
+                          child: isSigningUp
+                              ? const Center(
+                                  child: CircularProgressIndicator(
+                                    color: Colors.orange,
+                                  ),
+                                )
+                              : Text("Register now",
+                                  textAlign: TextAlign.center,
+                                  style: GoogleFonts.lato(
+                                    textStyle: const TextStyle(
+                                        color: Colors.white, fontSize: 20),
+                                  )),
                         )),
                   ),
                 ),

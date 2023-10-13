@@ -35,6 +35,8 @@ class SignOutButton extends StatelessWidget {
                               TextButton(
                                   onPressed: () async {
                                     await FirebaseAuth.instance.signOut();
+                                    // ignore: use_build_context_synchronously
+                                    Navigator.pop(context);
                                   },
                                   child: const Text("Yes"))
                             ],
@@ -72,8 +74,6 @@ class _CommentState extends State<Comment> {
       print("The error is $e");
     }
   }
-
-  @override
 
   @override
   Widget build(BuildContext context) {
