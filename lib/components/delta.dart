@@ -53,8 +53,8 @@ class SignOutButton extends StatelessWidget {
 }
 
 class Comment extends StatefulWidget {
-  const Comment({super.key});
-
+  const Comment({super.key, required this.postID});
+  final String postID;
   @override
   State<Comment> createState() => _CommentState();
 }
@@ -126,7 +126,7 @@ class _CommentState extends State<Comment> {
                                             userID: currentUserID,
                                             text: commentController.text.trim(),
                                             timestamp: DateTime.now());
-                                        postComment(currentUserID, comment);
+                                        postComment(widget.postID, comment);
                                         commentController.clear();
                                         Navigator.pop(context);
                                         showBottomSheet(

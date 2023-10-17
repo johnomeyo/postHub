@@ -19,6 +19,7 @@ class _SignUpState extends State<SignUp> {
   final emailController = TextEditingController();
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
+  final String? currentUserEmail = FirebaseAuth.instance.currentUser!.email;
 
   @override
   void dispose() {
@@ -39,7 +40,10 @@ class _SignUpState extends State<SignUp> {
           email: emailController.text.trim(),
           password: passwordController.text.trim());
 
-      await FirebaseFirestore.instance.collection("users").add(
+      await FirebaseFirestore.instance
+          .collection("users")
+          .doc(currentUserEmail)
+          .set(
         {
           "email": emailController.text.trim(),
           "username": usernameController.text.trim(),
@@ -57,6 +61,9 @@ class _SignUpState extends State<SignUp> {
           duration: const Duration(seconds: 2),
           content: Text("The error is ${e.toString()}")));
     }
+    setState(() {
+      isSigningUp = false;
+    });
   }
 
   @override

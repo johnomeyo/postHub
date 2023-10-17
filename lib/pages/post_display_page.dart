@@ -63,7 +63,7 @@ class _PostDisplayPageState extends State<PostDisplayPage> {
                     return const CircularProgressIndicator();
                   }
                   var comments = snapshot.data!.docs;
-                  print("COMMENTS ARE ${comments.length}");
+
                   return Expanded(
                     child: ListView.builder(
                         itemCount: comments.length,

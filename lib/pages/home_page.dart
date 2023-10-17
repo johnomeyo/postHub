@@ -16,7 +16,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   String username = "";
-  final String postID = FirebaseFirestore.instance.collection("posts").doc().id;
+
   final _postStream = FirebaseFirestore.instance
       .collection("posts")
       .orderBy("timestamp", descending: true)
@@ -38,7 +38,6 @@ class _HomePageState extends State<HomePage> {
                 ],
               );
             }
-
             var docs = snapshot.data!.docs;
             return SafeArea(
               child: Padding(
@@ -104,12 +103,14 @@ class _HomePageState extends State<HomePage> {
                                     MaterialPageRoute(
                                         builder: (context) => PostDisplayPage(
                                               imageUrl: docs[index]['imageUrl'],
-                                              postID: postID,
+                                              postID: docs[index].id,
                                             ))),
                                 child: Post(
-                                    caption: docs[index]['caption'],
-                                    imageUrl: docs[index]['imageUrl'],
-                                    likes: const []),
+                                  caption: docs[index]['caption'],
+                                  imageUrl: docs[index]['imageUrl'],
+                                  likes: const [],
+                                  currentPostID: docs[index].id,
+                                ),
                               )),
                     ),
                   ],

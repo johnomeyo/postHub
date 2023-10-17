@@ -27,7 +27,7 @@ class _MyWidgetState extends State<MyWidget> {
             var docs = snapshot.data!.docs;
             return ListView.builder(
                 itemCount: docs.length,
-                itemBuilder: (context, index) => Post(caption: docs[index]['caption'], imageUrl: docs[index]['imageUrl'], likes: []));
+                itemBuilder: (context, index) => Post(caption: docs[index]['caption'], imageUrl: docs[index]['imageUrl'], likes: [], currentPostID: '',));
           }),
     );
   }

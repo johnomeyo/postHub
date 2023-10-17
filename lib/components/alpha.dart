@@ -11,9 +11,10 @@ class Post extends StatefulWidget {
       {super.key,
       required this.caption,
       required this.imageUrl,
-      required this.likes});
+      required this.likes, required this.currentPostID});
   final String caption;
   final String imageUrl;
+  final String currentPostID;
   List<String> likes;
 
   @override
@@ -104,7 +105,7 @@ class _PostState extends State<Post> {
                   const SizedBox(
                     width: 10,
                   ),
-                  const Comment()
+                   Comment(postID: widget.currentPostID,)
                 ],
               )
             ],
