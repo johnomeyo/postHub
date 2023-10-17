@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -21,7 +22,7 @@ class Post extends StatefulWidget {
 
 class _PostState extends State<Post> {
   final currentUserID = FirebaseAuth.instance.currentUser!.uid;
-
+  final uploaderID = FirebaseFirestore.instance.collection("users").doc().id;
   bool isLiked = false;
   @override
   Widget build(BuildContext context) {
@@ -41,20 +42,6 @@ class _PostState extends State<Post> {
             children: [
               Row(
                 children: [
-                  CircleAvatar(
-                    radius: 20,
-                    child: ClipOval(
-                      child: Image.network(
-                        "https://images.unsplash.com/photo-1533738363-b7f9aef128ce?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1635&q=80",
-                        height: 40,
-                        width: 40,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
                   Text(
                     "@astropphel",
                     style: GoogleFonts.lato(fontWeight: FontWeight.w900),

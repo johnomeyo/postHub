@@ -16,6 +16,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   String username = "";
+  final String postID = FirebaseFirestore.instance.collection("posts").doc().id;
   final _postStream = FirebaseFirestore.instance
       .collection("posts")
       .orderBy("timestamp", descending: true)
@@ -98,12 +99,18 @@ class _HomePageState extends State<HomePage> {
                       child: ListView.builder(
                           itemCount: docs.length,
                           itemBuilder: (context, index) => GestureDetector(
-                            onTap: ()=> Navigator.push(context, MaterialPageRoute(builder: (context) =>const PostDisplayPage() )),
-                            child: Post(
-                                caption: docs[index]['caption'],
-                                imageUrl: docs[index]['imageUrl'],
-                                likes: const []),
-                          )),
+                                onTap: () => Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => PostDisplayPage(
+                                              imageUrl: docs[index]['imageUrl'],
+                                              postID: postID,
+                                            ))),
+                                child: Post(
+                                    caption: docs[index]['caption'],
+                                    imageUrl: docs[index]['imageUrl'],
+                                    likes: const []),
+                              )),
                     ),
                   ],
                 ),
