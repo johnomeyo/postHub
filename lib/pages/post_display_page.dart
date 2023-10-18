@@ -6,9 +6,13 @@ import 'package:posthub/components/epslon.dart';
 
 class PostDisplayPage extends StatefulWidget {
   const PostDisplayPage(
-      {super.key, required this.imageUrl, required this.postID});
+      {super.key,
+      required this.imageUrl,
+      required this.postID,
+      required this.caption});
   final String imageUrl;
   final String postID;
+  final String caption;
 
   @override
   State<PostDisplayPage> createState() => _PostDisplayPageState();
@@ -44,6 +48,7 @@ class _PostDisplayPageState extends State<PostDisplayPage> {
                 ),
               ),
             ]),
+            Text(widget.caption),
             const SizedBox(
               height: 20,
             ),
