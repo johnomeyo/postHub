@@ -11,7 +11,8 @@ class Post extends StatefulWidget {
       {super.key,
       required this.caption,
       required this.imageUrl,
-      required this.likes, required this.currentPostID});
+      required this.likes,
+      required this.currentPostID});
   final String caption;
   final String imageUrl;
   final String currentPostID;
@@ -81,17 +82,18 @@ class _PostState extends State<Post> {
                         style: GoogleFonts.lato(fontSize: 20),
                       ),
                       IconButton(
-                        onPressed: () {
+                        onPressed: () async {
                           setState(() {
                             isLiked = !isLiked;
                             if (isLiked) {
-                              widget.likes.add(
-                                  currentUserID); // Replace with actual user ID
+                              widget.likes.add(currentUserID);
+                              // Replace with actual user ID
                             } else {
                               widget.likes.remove(
                                   currentUserID); // Replace with actual user ID
                             }
                           });
+                          print(widget.likes.length);
                         },
                         icon: Icon(
                           isLiked
@@ -105,7 +107,9 @@ class _PostState extends State<Post> {
                   const SizedBox(
                     width: 10,
                   ),
-                   Comment(postID: widget.currentPostID,)
+                  Comment(
+                    postID: widget.currentPostID,
+                  )
                 ],
               )
             ],

@@ -102,14 +102,13 @@ class _HomePageState extends State<HomePage> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) => PostDisplayPage(
-                                              imageUrl: docs[index]['imageUrl'],
-                                              postID: docs[index].id,
-                                              caption: docs[index]['caption']
-                                            ))),
+                                            imageUrl: docs[index]['imageUrl'],
+                                            postID: docs[index].id,
+                                            caption: docs[index]['caption'], likes: '',))),
                                 child: Post(
                                   caption: docs[index]['caption'],
                                   imageUrl: docs[index]['imageUrl'],
-                                  likes: const [],
+                                  likes: [],
                                   currentPostID: docs[index].id,
                                 ),
                               )),

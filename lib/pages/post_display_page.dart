@@ -9,10 +9,11 @@ class PostDisplayPage extends StatefulWidget {
       {super.key,
       required this.imageUrl,
       required this.postID,
-      required this.caption});
+      required this.caption, required this.likes});
   final String imageUrl;
   final String postID;
   final String caption;
+  final String likes;
 
   @override
   State<PostDisplayPage> createState() => _PostDisplayPageState();
@@ -48,9 +49,25 @@ class _PostDisplayPageState extends State<PostDisplayPage> {
                 ),
               ),
             ]),
-            Text(widget.caption),
             const SizedBox(
               height: 20,
+            ),
+            Text(
+              widget.caption,
+              style: GoogleFonts.lato(fontSize: 20),
+            ),
+            Text(
+              widget.caption,
+              style: GoogleFonts.lato(fontSize: 20),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Divider(
+              color: Colors.grey,
+            ),
+            const SizedBox(
+              height: 10,
             ),
             Text(
               "Comments: ",
@@ -62,6 +79,7 @@ class _PostDisplayPageState extends State<PostDisplayPage> {
                     .collection('posts')
                     .doc(widget.postID)
                     .collection('comments')
+                    .orderBy('timestamp', descending: true)
                     .snapshots(),
                 builder: (context, snapshot) {
                   if (!snapshot.hasData) {

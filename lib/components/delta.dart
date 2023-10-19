@@ -71,7 +71,11 @@ class _CommentState extends State<Comment> {
           .collection("comments")
           .add(comment.toJson());
     } catch (e) {
-      print("The error is $e");
+      // ignore: use_build_context_synchronously
+      showBottomSheet(
+          context: context,
+          builder: ((context) =>
+              SnackBar(content: Text("An error ${e.toString()} occured"))));
     }
   }
 

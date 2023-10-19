@@ -30,3 +30,31 @@ class Comment extends StatelessWidget {
     );
   }
 }
+
+class MyTextFields extends StatelessWidget {
+  const MyTextFields({super.key, required this.hintText, required this.controller});
+  final String hintText;
+  final TextEditingController controller;
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: Container(
+        decoration: BoxDecoration(
+            color: Colors.grey.shade200,
+            borderRadius: BorderRadius.circular(10)),
+        child: TextField(
+          style: const TextStyle(color: Colors.black),
+           controller: controller,
+          decoration: InputDecoration(
+            border: InputBorder.none,
+            hintText: hintText,
+            hintStyle: TextStyle(color: Colors.grey.shade700),
+            contentPadding:
+                const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+          ),
+        ),
+      ),
+    );
+  }
+}

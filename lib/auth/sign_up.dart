@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:posthub/auth/sign_in.dart';
 import 'package:posthub/components/beta.dart';
+import 'package:posthub/components/epslon.dart';
 // import 'package:posthub/models/user_model.dart';
 
 class SignUp extends StatefulWidget {
@@ -99,65 +100,12 @@ class _SignUpState extends State<SignUp> {
                 ),
 
                 //username textfield
-                Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                        color: Colors.grey.shade200,
-                        borderRadius: BorderRadius.circular(10)),
-                    child: TextField(
-                      style: const TextStyle(color: Colors.black),
-                      // controller: fullnameController,
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: 'username',
-                        hintStyle: TextStyle(color: Colors.grey.shade700),
-                        contentPadding: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 15),
-                      ),
-                    ),
-                  ),
-                ),
-                //email textfield
-                Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                        color: Colors.grey.shade200,
-                        borderRadius: BorderRadius.circular(10)),
-                    child: TextField(
-                      style: const TextStyle(color: Colors.black),
-                      controller: emailController,
-                      decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: 'email',
-                          hintStyle: TextStyle(color: Colors.grey.shade700),
-                          contentPadding: const EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 15),
-                          suffixIcon: const Icon(Icons.check_circle_rounded)),
-                    ),
-                  ),
-                ),
-                //password textfield
-                Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                        color: Colors.grey.shade200,
-                        borderRadius: BorderRadius.circular(10)),
-                    child: TextField(
-                      style: const TextStyle(color: Colors.black),
-                      controller: passwordController,
-                      decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: 'password',
-                          hintStyle: TextStyle(color: Colors.grey.shade700),
-                          contentPadding: const EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 15),
-                          suffixIcon: const Icon(Icons.visibility)),
-                    ),
-                  ),
-                ),
+                MyTextFields(
+                    hintText: "Username", controller: usernameController),
+                MyTextFields(hintText: "Email", controller: emailController),
+                MyTextFields(
+                    hintText: "Password", controller: passwordController),
+
                 const SizedBox(
                   height: 10,
                 ),

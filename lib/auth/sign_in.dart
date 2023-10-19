@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -21,11 +23,11 @@ class _LoginPageState extends State<LoginPage> {
           email: emailController.text.trim(),
           password: passwordController.text.trim());
 
-      // ignore: use_build_context_synchronously
       Scaffold.of(context).showBottomSheet(
-          (context) => const SnackBar(content: Text("Loggin Successful")));
+          (context) => const SnackBar(content: Text("Login Successful")));
     } catch (e) {
-      debugPrint("The error is$e");
+      Scaffold.of(context).showBottomSheet((context) =>
+          SnackBar(content: Text("An error ${e.toString()} occured")));
     }
   }
 
