@@ -20,7 +20,7 @@ class _SignUpState extends State<SignUp> {
   final emailController = TextEditingController();
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
-  final String? currentUserEmail = FirebaseAuth.instance.currentUser!.email;
+  // final String? currentUserEmail = FirebaseAuth.instance.currentUser!.email;
 
   @override
   void dispose() {
@@ -43,7 +43,7 @@ class _SignUpState extends State<SignUp> {
 
       await FirebaseFirestore.instance
           .collection("users")
-          .doc(currentUserEmail)
+          .doc()
           .set(
         {
           "email": emailController.text.trim(),
