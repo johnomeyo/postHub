@@ -9,7 +9,8 @@ class PostDisplayPage extends StatefulWidget {
       {super.key,
       required this.imageUrl,
       required this.postID,
-      required this.caption, required this.likes});
+      required this.caption,
+      required this.likes});
   final String imageUrl;
   final String postID;
   final String caption;
@@ -56,14 +57,10 @@ class _PostDisplayPageState extends State<PostDisplayPage> {
               widget.caption,
               style: GoogleFonts.lato(fontSize: 20),
             ),
-            Text(
-              widget.caption,
-              style: GoogleFonts.lato(fontSize: 20),
-            ),
             const SizedBox(
               height: 10,
             ),
-            Divider(
+            const Divider(
               color: Colors.grey,
             ),
             const SizedBox(

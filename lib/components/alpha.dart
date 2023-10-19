@@ -27,6 +27,31 @@ class _PostState extends State<Post> {
   final uploaderID = FirebaseFirestore.instance.collection("users").doc().id;
   bool isLiked = false;
   @override
+  void initState() {
+    super.initState();
+    isLiked = widget.likes.contains(currentUserID);
+  }
+
+  toggleIsLiked() {
+    setState(() {
+      isLiked = !isLiked;
+    });
+    DocumentReference postRef = FirebaseFirestore.instance
+        .collection("posts")
+        .doc(widget.currentPostID);
+    if (isLiked) {
+      postRef.update({
+        'likes': FieldValue.arrayUnion([currentUserID])
+      });
+    } else {
+      postRef.update({
+        'likes': FieldValue.arrayRemove([currentUserID])
+      });
+    }
+    print(widget.likes.length);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5),
@@ -82,19 +107,7 @@ class _PostState extends State<Post> {
                         style: GoogleFonts.lato(fontSize: 20),
                       ),
                       IconButton(
-                        onPressed: () async {
-                          setState(() {
-                            isLiked = !isLiked;
-                            if (isLiked) {
-                              widget.likes.add(currentUserID);
-                              // Replace with actual user ID
-                            } else {
-                              widget.likes.remove(
-                                  currentUserID); // Replace with actual user ID
-                            }
-                          });
-                          print(widget.likes.length);
-                        },
+                        onPressed: toggleIsLiked,
                         icon: Icon(
                           isLiked
                               ? Icons.favorite

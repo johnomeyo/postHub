@@ -22,7 +22,7 @@ class _UploadState extends State<Upload> {
   final descriptionController = TextEditingController();
   String selectedPath = "";
   String imageUrl = "";
-
+  bool isPosting = false;
   @override
   void dispose() {
     descriptionController.dispose();
@@ -224,7 +224,9 @@ class _UploadState extends State<Upload> {
                   Reference referenceImageToUpload =
                       referencDirImages.child(uniqueName);
                   try {
-                    const CircularProgressIndicator();
+                    setState(() {
+                      isPosting = true;
+                    });
                     await referenceImageToUpload.putFile(File(selectedPath));
                     imageUrl = await referenceImageToUpload.getDownloadURL();
 
@@ -233,6 +235,10 @@ class _UploadState extends State<Upload> {
                       "imageUrl": imageUrl,
                       "uploader": FirebaseAuth.instance.currentUser!.uid,
                       "timestamp": Timestamp.now(),
+                      "likes": []
+                    });
+                    setState(() {
+                      isPosting = false;
                     });
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) => const Home()));
@@ -257,13 +263,21 @@ class _UploadState extends State<Upload> {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 15),
                   child: Center(
-                      child: Text(
-                    "Post",
-                    style: GoogleFonts.lato(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        letterSpacing: 1),
-                  )),
+                      child: isPosting
+                          ? Text(
+                              "Uploading...",
+                              style: GoogleFonts.lato(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  letterSpacing: 1),
+                            )
+                          : Text(
+                              "Post",
+                              style: GoogleFonts.lato(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  letterSpacing: 1),
+                            )),
                 ),
               ),
             )

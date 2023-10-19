@@ -104,11 +104,13 @@ class _HomePageState extends State<HomePage> {
                                         builder: (context) => PostDisplayPage(
                                             imageUrl: docs[index]['imageUrl'],
                                             postID: docs[index].id,
-                                            caption: docs[index]['caption'], likes: '',))),
+                                            caption: docs[index]['caption'],
+                                            likes:'likes',))),
                                 child: Post(
                                   caption: docs[index]['caption'],
                                   imageUrl: docs[index]['imageUrl'],
-                                  likes: [],
+                                  likes: List<String>.from(
+                                      docs[index]['likes'] ?? []),
                                   currentPostID: docs[index].id,
                                 ),
                               )),
