@@ -62,8 +62,6 @@ class _ProfileState extends State<Profile> {
                                     selectedPath = await SelectImage()
                                         .selectImageFromGallery();
                                     if (selectedPath != "") {
-                                      print(
-                                          "THE SELECTED PATH IS $selectedPath");
                                       Navigator.pop(context);
                                       setState(() {});
                                     } else {

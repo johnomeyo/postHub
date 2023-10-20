@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:posthub/components/epslon.dart';
-// import 'package:posthub/components/epslon.dart';
 
 class PostDisplayPage extends StatefulWidget {
   const PostDisplayPage(
@@ -21,6 +20,7 @@ class PostDisplayPage extends StatefulWidget {
 }
 
 class _PostDisplayPageState extends State<PostDisplayPage> {
+  // final String? userEmail = FirebaseAuth.instance.currentUser!.email;
   @override
   Widget build(BuildContext context) {
     return Scaffold(

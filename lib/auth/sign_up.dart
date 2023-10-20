@@ -20,8 +20,7 @@ class _SignUpState extends State<SignUp> {
   final emailController = TextEditingController();
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
-  // final String? currentUserEmail = FirebaseAuth.instance.currentUser!.email;
-
+  final currentUser = FirebaseAuth.instance.currentUser;
   @override
   void dispose() {
     emailController.dispose();
@@ -43,12 +42,13 @@ class _SignUpState extends State<SignUp> {
 
       await FirebaseFirestore.instance
           .collection("users")
-          .doc()
+          .doc(currentUser?.uid)
           .set(
         {
           "email": emailController.text.trim(),
           "username": usernameController.text.trim(),
           "password": passwordController.text.trim(),
+          "userID": currentUser?.uid,
           "profileImage":
               "https://images.unsplash.com/photo-1540331547168-8b63109225b7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1619&q=80"
         },
