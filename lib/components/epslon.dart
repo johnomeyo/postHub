@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Comment extends StatelessWidget {
-  const Comment({super.key, required this.username, required this.text});
-  final String username;
+  const Comment({super.key, required this.text, required this.username});
   final String text;
+  final String username;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -32,7 +33,8 @@ class Comment extends StatelessWidget {
 }
 
 class MyTextFields extends StatelessWidget {
-  const MyTextFields({super.key, required this.hintText, required this.controller});
+  const MyTextFields(
+      {super.key, required this.hintText, required this.controller});
   final String hintText;
   final TextEditingController controller;
   @override
@@ -44,8 +46,8 @@ class MyTextFields extends StatelessWidget {
             color: Colors.grey.shade200,
             borderRadius: BorderRadius.circular(10)),
         child: TextField(
-          style: const TextStyle(color: Colors.black),
-           controller: controller,
+          style: TextStyle(color: Colors.grey.shade500),
+          controller: controller,
           decoration: InputDecoration(
             border: InputBorder.none,
             hintText: hintText,

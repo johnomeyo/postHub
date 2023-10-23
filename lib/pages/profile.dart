@@ -3,8 +3,10 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:posthub/auth/auth_methods.dart';
 import 'package:posthub/components/delta.dart';
 import 'package:posthub/services/image_selection.dart';
 
@@ -17,22 +19,21 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   final List<String> images = [];
+  final user = FirebaseAuth.instance.currentUser;
+
   final String currentUserID =
       FirebaseFirestore.instance.collection("users").doc().id;
+
   String selectedPath = "";
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: StreamBuilder(
-            stream: FirebaseFirestore.instance
-                .collection("users")
-                .doc(currentUserID)
-                .snapshots(),
+        body: FutureBuilder(
+            future: AuthMethods().getUserData(user!.email!),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                Map<String, dynamic> userData =
-                    snapshot.data!.data() as Map<String, dynamic>;
+                final userData = snapshot.data as Map<String, dynamic>;
                 return SafeArea(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -87,7 +88,7 @@ class _ProfileState extends State<Profile> {
                           height: 20,
                         ),
                         Text(
-                          "4vr Lit😮‍💨🔥",
+                          userData['bio'],
                           style: GoogleFonts.lato(),
                         ),
                         const SizedBox(
@@ -144,9 +145,7 @@ class _ProfileState extends State<Profile> {
                   ),
                 );
               } else {
-                return const Center(
-                  child: Text("an error occured"),
-                );
+                return const Center(child: CircularProgressIndicator());
               }
             }));
   }

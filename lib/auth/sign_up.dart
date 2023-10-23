@@ -19,6 +19,7 @@ class SignUp extends StatefulWidget {
 class _SignUpState extends State<SignUp> {
   final emailController = TextEditingController();
   final usernameController = TextEditingController();
+  final bioController = TextEditingController();
   final passwordController = TextEditingController();
   final currentUser = FirebaseAuth.instance.currentUser;
   @override
@@ -42,12 +43,13 @@ class _SignUpState extends State<SignUp> {
 
       await FirebaseFirestore.instance
           .collection("users")
-          .doc(currentUser?.uid)
+          .doc(emailController.text)
           .set(
         {
           "email": emailController.text.trim(),
           "username": usernameController.text.trim(),
           "password": passwordController.text.trim(),
+          "bio": bioController.text.trim(),
           "userID": currentUser?.uid,
           "profileImage":
               "https://images.unsplash.com/photo-1540331547168-8b63109225b7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1619&q=80"
@@ -100,11 +102,13 @@ class _SignUpState extends State<SignUp> {
                 ),
 
                 //username textfield
-                MyTextFields(
-                    hintText: "Username", controller: usernameController),
+
                 MyTextFields(hintText: "Email", controller: emailController),
                 MyTextFields(
                     hintText: "Password", controller: passwordController),
+                MyTextFields(
+                    hintText: "Username", controller: usernameController),
+                MyTextFields(hintText: "Bio", controller: bioController),
 
                 const SizedBox(
                   height: 10,
