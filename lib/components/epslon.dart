@@ -89,7 +89,7 @@ class MyTextBox extends StatelessWidget {
                   ),
                   const Spacer(),
                   IconButton(
-                      onPressed: () {},
+                      onPressed: () =>onPressed,
                       icon: Icon(
                         Icons.settings,
                         color: Colors.grey.shade400,

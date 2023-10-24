@@ -280,7 +280,7 @@ class _UploadState extends State<Upload> {
                             )),
                 ),
               ),
-            )
+            ),
           ],
         ),
       )),

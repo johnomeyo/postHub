@@ -5,13 +5,52 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:posthub/components/epslon.dart';
 
 class Profile extends StatefulWidget {
-  const Profile({super.key});
+  const Profile({
+    super.key,
+  });
 
   @override
   State<Profile> createState() => _ProfileState();
 }
 
 class _ProfileState extends State<Profile> {
+  void signOut() {
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) => AlertDialog(
+              contentPadding: const EdgeInsets.all(0),
+              content: SizedBox(
+                height: 100,
+                child: Column(
+                  children: [
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    const Text("Are you sure you want to log out?"),
+                    Row(
+                      children: [
+                        const Spacer(),
+                        TextButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: const Text("No")),
+                        TextButton(
+                            onPressed: () async {
+                              await FirebaseAuth.instance.signOut();
+                              // ignore: use_build_context_synchronously
+                              Navigator.pop(context);
+                            },
+                            child: const Text("Yes"))
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            ));
+  }
+
   void editField(String field) async {
     String newValue = "";
     await showDialog(
@@ -41,12 +80,12 @@ class _ProfileState extends State<Profile> {
     if (newValue.isNotEmpty) {
       await FirebaseFirestore.instance
           .collection('users')
-          .doc(currentUser.email)
+          .doc(currentUser?.email)
           .update({field: newValue});
     }
   }
 
-  final currentUser = FirebaseAuth.instance.currentUser!;
+  final currentUser = FirebaseAuth.instance.currentUser;
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +93,7 @@ class _ProfileState extends State<Profile> {
         body: StreamBuilder(
       stream: FirebaseFirestore.instance
           .collection("users")
-          .doc(currentUser.email)
+          .doc(currentUser?.email)
           .snapshots(),
       builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
         if (snapshot.hasData) {
@@ -84,16 +123,26 @@ class _ProfileState extends State<Profile> {
                     ),
                   ),
                   MyTextBox(
-                      text: userData['username'],
+                      text: userData['username'] ?? "",
                       sectionName: "username",
                       onPressed: () => editField('username')),
                   const SizedBox(
                     height: 20,
                   ),
                   MyTextBox(
-                      text: userData['bio'],
+                      text: userData['bio'] ?? "",
                       sectionName: "bio",
-                      onPressed: () => editField('bio'))
+                      onPressed: () => editField('bio')),
+                  Spacer(),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextButton(
+                        onPressed: () => signOut(),
+                        child: Text(
+                          "L O G O U T",
+                          style: GoogleFonts.aBeeZee(color: Colors.grey),
+                        )),
+                  )
                 ],
               ),
             ),
