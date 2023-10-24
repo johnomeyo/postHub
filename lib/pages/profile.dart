@@ -1,14 +1,8 @@
-// ignore_for_file: use_build_context_synchronously
-
-import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:posthub/auth/auth_methods.dart';
-import 'package:posthub/components/delta.dart';
-import 'package:posthub/services/image_selection.dart';
+import 'package:posthub/components/epslon.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -18,135 +12,101 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
-  final List<String> images = [];
-  final user = FirebaseAuth.instance.currentUser;
+  void editField(String field) async {
+    String newValue = "";
+    await showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+              title: Text("Edit $field"),
+              content: TextField(
+                autofocus: true,
+                decoration: InputDecoration(
+                  hintText: "Enter the new $field",
+                ),
+                onChanged: (value) => newValue = value,
+              ),
+              actions: [
+                TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: const Text("Cancel")),
+                TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop(newValue);
+                    },
+                    child: const Text("Save"))
+              ],
+            ));
+    if (newValue.isNotEmpty) {
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(currentUser.email)
+          .update({field: newValue});
+    }
+  }
 
-  final String currentUserID =
-      FirebaseFirestore.instance.collection("users").doc().id;
-
-  String selectedPath = "";
+  final currentUser = FirebaseAuth.instance.currentUser!;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: FutureBuilder(
-            future: AuthMethods().getUserData(user!.email!),
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                final userData = snapshot.data as Map<String, dynamic>;
-                return SafeArea(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            Stack(children: [
-                              CircleAvatar(
-                                radius: 50,
-                                child: selectedPath == ""
-                                    ? ClipRRect(
-                                        borderRadius: BorderRadius.circular(50),
-                                        child: Image.asset("assets/dp.png"))
-                                    : ClipRRect(
-                                        borderRadius: BorderRadius.circular(50),
-                                        child: Image.file(File(selectedPath))),
-                              ),
-                              Positioned(
-                                top: 65,
-                                left: 65,
-                                right: 5,
-                                child: IconButton(
-                                  icon: const Icon(Icons.camera_alt_outlined),
-                                  onPressed: () async {
-                                    selectedPath = await SelectImage()
-                                        .selectImageFromGallery();
-                                    if (selectedPath != "") {
-                                      Navigator.pop(context);
-                                      setState(() {});
-                                    } else {
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(const SnackBar(
-                                              content:
-                                                  Text("No image selected")));
-                                    }
-                                  },
-                                  color: Colors.blue,
-                                ),
-                              ),
-                            ]),
-                            const Spacer(),
-                            const SignOutButton(),
-                          ],
-                        ),
-                        Text(
-                          userData['username'],
-                          style: GoogleFonts.lato(fontWeight: FontWeight.bold),
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        Text(
-                          userData['bio'],
-                          style: GoogleFonts.lato(),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Divider(
-                            height: 1,
-                            color: Colors.grey.shade500,
-                          ),
-                        ),
-                        if (images.isNotEmpty)
-                          Expanded(
-                            child: GridView.builder(
-                                itemCount: images.length,
-                                gridDelegate:
-                                    const SliverGridDelegateWithFixedCrossAxisCount(
-                                        crossAxisCount: 2,
-                                        crossAxisSpacing: 10,
-                                        mainAxisSpacing: 10),
-                                itemBuilder: (context, index) => Container(
-                                      height: 100,
-                                      decoration: BoxDecoration(
-                                          color: Colors.orange,
-                                          borderRadius:
-                                              BorderRadius.circular(10)),
-                                    )),
-                          )
-                        else
-                          Center(
-                            child: Column(
-                              children: [
-                                const SizedBox(
-                                  height: 50,
-                                ),
-                                Image.asset(
-                                  "assets/oops.png",
-                                  height: 150,
-                                ),
-                                const SizedBox(
-                                  height: 20,
-                                ),
-                                Text(
-                                  "Ooops!!! Seems you haven't posted yet😪",
-                                  style: GoogleFonts.lato(
-                                      fontWeight: FontWeight.bold),
-                                )
-                              ],
-                            ),
-                          )
-                      ],
+        body: StreamBuilder(
+      stream: FirebaseFirestore.instance
+          .collection("users")
+          .doc(currentUser.email)
+          .snapshots(),
+      builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+        if (snapshot.hasData) {
+          final userData = snapshot.data!.data() as Map<String, dynamic>;
+          return SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Center(
+                      child: Icon(
+                    Icons.person,
+                    color: Colors.grey,
+                    size: 120,
+                  )),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Text(
+                      "My details",
+                      style: GoogleFonts.aBeeZee(
+                        fontSize: 17,
+                      ),
                     ),
                   ),
-                );
-              } else {
-                return const Center(child: CircularProgressIndicator());
-              }
-            }));
+                  MyTextBox(
+                      text: userData['username'],
+                      sectionName: "username",
+                      onPressed: () => editField('username')),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  MyTextBox(
+                      text: userData['bio'],
+                      sectionName: "bio",
+                      onPressed: () => editField('bio'))
+                ],
+              ),
+            ),
+          );
+        } else if (snapshot.hasError) {
+          return Text("An error ${snapshot.error.toString()} occured");
+        }
+        return const Center(
+          child: CircularProgressIndicator(
+            color: Colors.deepOrange,
+          ),
+        );
+      },
+    ));
   }
 }

@@ -33,8 +33,8 @@ class _HomePageState extends State<HomePage> {
               return const Column(
                 children: [
                   MyPostsShimmer(),
-                  MyPostsShimmer(),
-                  MyPostsShimmer(),
+                  // MyPostsShimmer(),
+                  // MyPostsShimmer(),
                 ],
               );
             }
@@ -49,7 +49,7 @@ class _HomePageState extends State<HomePage> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: ((context) =>  MyWidget())));
+                                builder: ((context) => MyWidget())));
                       },
                       child: Row(
                         children: [
@@ -102,16 +102,18 @@ class _HomePageState extends State<HomePage> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) => PostDisplayPage(
-                                            imageUrl: docs[index]['imageUrl'],
-                                            postID: docs[index].id,
-                                            caption: docs[index]['caption'],
-                                            likes:'likes',))),
+                                              imageUrl: docs[index]['imageUrl'],
+                                              postID: docs[index].id,
+                                              caption: docs[index]['caption'],
+                                              likes: 'likes',
+                                            ))),
                                 child: Post(
                                   caption: docs[index]['caption'],
                                   imageUrl: docs[index]['imageUrl'],
                                   likes: List<String>.from(
                                       docs[index]['likes'] ?? []),
                                   currentPostID: docs[index].id,
+                                  username: docs[index]['username'],
                                 ),
                               )),
                     ),

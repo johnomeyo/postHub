@@ -12,10 +12,12 @@ class Post extends StatefulWidget {
       required this.caption,
       required this.imageUrl,
       required this.likes,
-      required this.currentPostID});
+      required this.currentPostID,
+      required this.username});
   final String caption;
   final String imageUrl;
   final String currentPostID;
+  final String username;
   List<String> likes;
 
   @override
@@ -25,6 +27,7 @@ class Post extends StatefulWidget {
 class _PostState extends State<Post> {
   final currentUserID = FirebaseAuth.instance.currentUser!.uid;
   final uploaderID = FirebaseFirestore.instance.collection("users").doc().id;
+
   bool isLiked = false;
   @override
   void initState() {
@@ -48,7 +51,6 @@ class _PostState extends State<Post> {
         'likes': FieldValue.arrayRemove([currentUserID])
       });
     }
-    print(widget.likes.length);
   }
 
   @override
@@ -70,7 +72,7 @@ class _PostState extends State<Post> {
               Row(
                 children: [
                   Text(
-                    "@astropphel",
+                    widget.username,
                     style: GoogleFonts.lato(fontWeight: FontWeight.w900),
                   ),
                 ],

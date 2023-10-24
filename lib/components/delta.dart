@@ -61,7 +61,7 @@ class Comment extends StatefulWidget {
 
 class _CommentState extends State<Comment> {
   final commentController = TextEditingController();
-  final String currentUserID = FirebaseAuth.instance.currentUser!.uid;
+  final currentUserEmail = FirebaseAuth.instance.currentUser!.email;
 
   void postComment(String postID, CommentModel comment) async {
     try {
@@ -127,7 +127,7 @@ class _CommentState extends State<Comment> {
                                           .trim()
                                           .isNotEmpty) {
                                         CommentModel comment = CommentModel(
-                                            userID: currentUserID,
+                                            userID: currentUserEmail!,
                                             text: commentController.text.trim(),
                                             timestamp: DateTime.now());
                                         postComment(widget.postID, comment);

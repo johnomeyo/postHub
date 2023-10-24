@@ -233,7 +233,7 @@ class _UploadState extends State<Upload> {
                     await FirebaseFirestore.instance.collection("posts").add({
                       "caption": descriptionController.text,
                       "imageUrl": imageUrl,
-                      "uploader": FirebaseAuth.instance.currentUser!.uid,
+                      "username": FirebaseAuth.instance.currentUser!.email,
                       "timestamp": Timestamp.now(),
                       "likes": []
                     });
