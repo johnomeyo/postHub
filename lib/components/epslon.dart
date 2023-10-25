@@ -10,23 +10,33 @@ class Comment extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            username,
-            style: GoogleFonts.lato(
-                fontWeight: FontWeight.bold, color: Colors.grey.shade500),
+      child: Container(
+        width: double.infinity,
+        decoration: BoxDecoration(
+          border: Border.all(width: 1, color: Colors.grey),
+          borderRadius: BorderRadius.circular(10)
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "@$username",
+                style: GoogleFonts.lato(
+                    fontWeight: FontWeight.bold, color: Colors.grey.shade500),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                child: Text(text,
+                    style: GoogleFonts.lato(color: Colors.grey.shade500)),
+              )
+            ],
           ),
-          const SizedBox(
-            height: 10,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8),
-            child: Text(text,
-                style: GoogleFonts.lato(color: Colors.grey.shade500)),
-          )
-        ],
+        ),
       ),
     );
   }

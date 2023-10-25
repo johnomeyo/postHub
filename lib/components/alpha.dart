@@ -55,15 +55,7 @@ class _PostState extends State<Post> {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
-        stream: FirebaseFirestore.instance
-            .collection('users')
-            .doc(currentUser!.email)
-            .snapshots(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            final userData = snapshot.data?.data() as Map<String, dynamic>;
-            return Padding(
+    return Padding(
               padding: const EdgeInsets.symmetric(vertical: 5),
               child: Container(
                 decoration: BoxDecoration(
@@ -80,7 +72,7 @@ class _PostState extends State<Post> {
                       Row(
                         children: [
                           Text(
-                            userData['username'],
+                            widget.username,
                             style:
                                 GoogleFonts.lato(fontWeight: FontWeight.w900),
                           ),
@@ -141,9 +133,5 @@ class _PostState extends State<Post> {
                 ),
               ),
             );
-          } else {
-            return const CircularProgressIndicator();
-          }
-        });
   }
 }

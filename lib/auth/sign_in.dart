@@ -22,9 +22,7 @@ class _LoginPageState extends State<LoginPage> {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: emailController.text.trim(),
           password: passwordController.text.trim());
-
-      Scaffold.of(context).showBottomSheet(
-          (context) => const SnackBar(content: Text("Login Successful")));
+      print('login successful');
     } catch (e) {
       Scaffold.of(context).showBottomSheet((context) =>
           SnackBar(content: Text("An error ${e.toString()} occured")));
