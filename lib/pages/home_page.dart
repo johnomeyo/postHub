@@ -5,7 +5,6 @@ import 'package:posthub/auth/sign_in.dart';
 import 'package:posthub/components/alpha.dart';
 import 'package:posthub/components/beta.dart';
 import 'package:posthub/pages/post_display_page.dart';
-import 'package:posthub/test/dummy.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -33,8 +32,6 @@ class _HomePageState extends State<HomePage> {
               return const Column(
                 children: [
                   MyPostsShimmer(),
-                  // MyPostsShimmer(),
-                  // MyPostsShimmer(),
                 ],
               );
             }
@@ -44,55 +41,47 @@ class _HomePageState extends State<HomePage> {
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
                   children: [
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: ((context) => MyWidget())));
-                      },
-                      child: Row(
-                        children: [
-                          Row(
-                            children: [
-                              Text(
-                                "Post",
-                                style: GoogleFonts.lato(
-                                    fontSize: 20, fontWeight: FontWeight.bold),
-                              ),
-                              Container(
-                                decoration: BoxDecoration(
-                                    color: Colors.orange,
-                                    borderRadius: BorderRadius.circular(3)),
-                                child: Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(horizontal: 4),
-                                  child: Text(
-                                    "Hub",
-                                    style: GoogleFonts.lato(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black),
-                                  ),
+                    Row(
+                      children: [
+                        Row(
+                          children: [
+                            Text(
+                              "Post",
+                              style: GoogleFonts.lato(
+                                  fontSize: 20, fontWeight: FontWeight.bold),
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.orange,
+                                  borderRadius: BorderRadius.circular(3)),
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 4),
+                                child: Text(
+                                  "Hub",
+                                  style: GoogleFonts.lato(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black),
                                 ),
                               ),
-                            ],
-                          ),
-                          const Spacer(),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: IconButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              const LoginPage()));
-                                },
-                                icon: const Icon(Icons.person_2_outlined)),
-                          )
-                        ],
-                      ),
+                            ),
+                          ],
+                        ),
+                        const Spacer(),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: IconButton(
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const LoginPage()));
+                              },
+                              icon: const Icon(Icons.person_2_outlined)),
+                        )
+                      ],
                     ),
                     Expanded(
                       child: ListView.builder(
