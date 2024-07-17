@@ -19,7 +19,18 @@ class HomePage extends StatelessWidget {
                   colors: [colorScheme.secondary, colorScheme.surface])),
           child: const SingleChildScrollView(
             child: Column(
-              children: [PostCard(), PostCard()],
+              children: [
+                PostCard(
+                  imageUrl:
+                      "https://static.vecteezy.com/system/resources/thumbnails/026/829/465/small_2x/beautiful-girl-with-autumn-leaves-photo.jpg",
+                  username: 'flares',
+                ),
+                PostCard(
+                  imageUrl:
+                      "https://images.unsplash.com/photo-1615752592676-f6bd84f9419d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                  username: 'astropphel',
+                )
+              ],
             ),
           ),
         ),

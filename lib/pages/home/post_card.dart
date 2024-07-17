@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 
 class PostCard extends StatelessWidget {
-  const PostCard({super.key});
+  const PostCard({super.key, required this.imageUrl, required this.username});
+  final String imageUrl;
+  final String username;
 
   @override
   Widget build(BuildContext context) {
+    final themeData = Theme.of(context);
     return Card(
       margin: const EdgeInsets.all(8.0),
       child: Column(
@@ -13,13 +16,16 @@ class PostCard extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: Row(
               children: [
-                const CircleAvatar(
+                CircleAvatar(
                   backgroundImage: NetworkImage(
-                    "https://static.vecteezy.com/system/resources/thumbnails/026/829/465/small_2x/beautiful-girl-with-autumn-leaves-photo.jpg",
+                    imageUrl,
                   ),
                 ),
                 const SizedBox(width: 20),
-                const Text("flares"),
+                Text(
+                  username,
+                  style: themeData.textTheme.bodyLarge,
+                ),
                 const Spacer(),
                 IconButton(
                   onPressed: () {},
@@ -30,10 +36,10 @@ class PostCard extends StatelessWidget {
           ),
           Container(
             height: MediaQuery.of(context).size.height * 0.3,
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               image: DecorationImage(
                 image: NetworkImage(
-                  "https://images.unsplash.com/photo-1544965850-6f8a66788f9b?q=80&w=1814&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                  imageUrl,
                 ),
                 fit: BoxFit.cover,
               ),
