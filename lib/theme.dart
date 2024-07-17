@@ -38,10 +38,6 @@ class MaterialTheme {
       textTheme: const TextTheme(), // You can customize this further
       primaryColor: colorScheme.primary,
       scaffoldBackgroundColor: colorScheme.surface,
-      appBarTheme: AppBarTheme(
-        color: colorScheme.primary,
-        iconTheme: IconThemeData(color: colorScheme.onPrimary),
-      ),
     );
   }
 
