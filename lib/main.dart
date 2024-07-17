@@ -1,7 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:posthub/firebase_options.dart';
+import 'package:posthub/pages/bookmarks.dart';
 import 'package:posthub/pages/home_page.dart';
+import 'package:posthub/pages/messages.dart';
+import 'package:posthub/pages/profile.dart';
 import 'package:posthub/theme.dart';
 
 void main() async {
@@ -21,35 +24,47 @@ class MyApp extends StatelessWidget {
     } else {
       theme = MaterialTheme.lightTheme();
     }
-
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: theme,
-      home: const HomePage(),
+      home: const MainScreen(),
     );
   }
 }
 
-class MainScreen extends StatelessWidget {
+class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
 
   @override
+  State<MainScreen> createState() => _MainScreenState();
+}
+
+class _MainScreenState extends State<MainScreen> {
+  int index = 0;
+
+  @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Hey"),
-      ),
-      body: Column(
-        children: [
-          Badge(
-            child: IconButton(
-                onPressed: () {}, icon: const Icon(Icons.notifications)),
-          ),
-          Center(
-            child: FilledButton(onPressed: () {}, child: const Text("Wasssup")),
-          ),
-        ],
-      ),
-    );
+        bottomNavigationBar: BottomNavigationBar(
+            currentIndex: index,
+            onTap: (value) {
+              setState(() {
+                index = value;
+              });
+            },
+            selectedItemColor: colorScheme.secondary,
+            unselectedItemColor: colorScheme.primary,
+            items: const [
+              BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+              BottomNavigationBarItem(icon: Icon(Icons.chat_bubble_outline), label: "Chat"),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.bookmark_outline), label: "Bookmarks"),
+              BottomNavigationBarItem(icon: Icon(Icons.person_3_outlined), label: "Profile"),
+            ]),
+        body: IndexedStack(
+          index: index,
+          children: const [HomePage(), MessagePage(), Bookmarks(), Profile()],
+        ));
   }
 }
