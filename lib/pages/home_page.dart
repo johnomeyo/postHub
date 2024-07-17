@@ -16,19 +16,10 @@ class HomePage extends StatelessWidget {
           decoration: BoxDecoration(
               gradient: LinearGradient(
                   begin: Alignment.topCenter,
-                  colors: [colorScheme.secondary, colorScheme.surface])
-                  
-                  ),
+                  colors: [colorScheme.secondary, colorScheme.surface])),
           child: const SingleChildScrollView(
             child: Column(
-              children: [
-                Text("Welcome"),
-                SizedBox(
-                  height: 100,
-                ),
-                PostCard(),
-                PostCard()
-              ],
+              children: [PostCard(), PostCard()],
             ),
           ),
         ),
