@@ -29,13 +29,11 @@ class HomePage extends StatelessWidget {
                 gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     colors: [colorScheme.secondary, colorScheme.surface])),
-            child: Expanded(
-              child: ListView.builder(
-                  itemCount: posts.length,
-                  itemBuilder: (context, index) {
-                    return posts[index];
-                  }),
-            )),
+            child: ListView.builder(
+                itemCount: posts.length,
+                itemBuilder: (context, index) {
+                  return posts[index];
+                })),
       ),
     );
   }

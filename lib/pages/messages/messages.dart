@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:posthub/pages/messages/widgets/message_tile.dart';
+import 'package:posthub/pages/messages/widgets/search_bar.dart';
 
 class Messages extends StatelessWidget {
   const Messages({super.key});
@@ -13,6 +14,7 @@ class Messages extends StatelessWidget {
       body: ListView(
         padding: const EdgeInsets.all(8.0),
         children: const [
+          CustomSearchBar(),
           Padding(
             padding: EdgeInsets.symmetric(vertical: 10.0),
             child: Text(

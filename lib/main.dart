@@ -4,7 +4,7 @@ import 'package:posthub/firebase_options.dart';
 import 'package:posthub/pages/bookmarks.dart';
 import 'package:posthub/pages/home/home_page.dart';
 import 'package:posthub/pages/messages/messages.dart';
-import 'package:posthub/pages/profile.dart';
+import 'package:posthub/pages/profile/profile.dart';
 import 'package:posthub/theme.dart';
 
 void main() async {
