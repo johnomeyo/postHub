@@ -20,13 +20,13 @@ class MaterialTheme {
   static ColorScheme darkScheme() {
     return const ColorScheme(
       brightness: Brightness.dark,
-      primary: Color(0xFF3D405B), // Use the specified color as primary
+      primary: Color(0x0000614b), // Use the specified color as primary
       onPrimary: Color(0xFFFFFFFF), // Text color on primary
       secondary: Color(0xFF81B29A), // A complementary color for secondary
       onSecondary: Color(0xFF3D405B), // Text color on secondary
       error: Color(0xFFFF4C4C), // A suitable error color
-      onError: Color(0xFFFFFFFF), // Text color on error
-      surface: Color(0xFF2B2D42), // Dark surface color
+      onError: Color(0xFFFFFFFF), // Text color on error 
+      surface: Color(0x00253745), // Dark surface color
       onSurface: Color(0xFFECECEC), // Text color on background
     );
   }
@@ -38,10 +38,6 @@ class MaterialTheme {
       textTheme: const TextTheme(), // You can customize this further
       primaryColor: colorScheme.primary,
       scaffoldBackgroundColor: colorScheme.surface,
-      appBarTheme: AppBarTheme(
-        color: colorScheme.primary,
-        iconTheme: IconThemeData(color: colorScheme.onPrimary),
-      ),
     );
   }
 
@@ -52,10 +48,6 @@ class MaterialTheme {
       textTheme: const TextTheme(), // You can customize this further
       primaryColor: colorScheme.primary,
       scaffoldBackgroundColor: colorScheme.surface,
-      appBarTheme: AppBarTheme(
-        color: colorScheme.primary,
-        iconTheme: IconThemeData(color: colorScheme.onPrimary),
-      ),
     );
   }
 }
