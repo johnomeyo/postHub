@@ -9,6 +9,7 @@ class Profile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: const Text('Your Profile'),
       ),
       body: Padding(
@@ -61,9 +62,13 @@ class Profile extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(height: 20,),
+            const SizedBox(
+              height: 20,
+            ),
             const Text("Others"),
-            const SizedBox(height: 20,),
+            const SizedBox(
+              height: 20,
+            ),
             const ProfileSection()
           ],
         ),

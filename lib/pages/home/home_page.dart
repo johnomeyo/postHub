@@ -16,9 +16,47 @@ class HomePage extends StatelessWidget {
         imageUrl:
             "https://images.unsplash.com/photo-1615752592676-f6bd84f9419d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
         username: 'astropphel',
-      )
+      ),
+            const PostCard(
+        imageUrl:
+            "https://static.vecteezy.com/system/resources/thumbnails/026/829/465/small_2x/beautiful-girl-with-autumn-leaves-photo.jpg",
+        username: 'flares',
+      ),
+      const PostCard(
+        imageUrl:
+            "https://images.unsplash.com/photo-1615752592676-f6bd84f9419d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        username: 'astropphel',
+      ),      const PostCard(
+        imageUrl:
+            "https://static.vecteezy.com/system/resources/thumbnails/026/829/465/small_2x/beautiful-girl-with-autumn-leaves-photo.jpg",
+        username: 'flares',
+      ),
+      const PostCard(
+        imageUrl:
+            "https://images.unsplash.com/photo-1615752592676-f6bd84f9419d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        username: 'astropphel',
+      ),      const PostCard(
+        imageUrl:
+            "https://static.vecteezy.com/system/resources/thumbnails/026/829/465/small_2x/beautiful-girl-with-autumn-leaves-photo.jpg",
+        username: 'flares',
+      ), 
+      const PostCard(
+        imageUrl:
+            "https://images.unsplash.com/photo-1615752592676-f6bd84f9419d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        username: 'astropphel',
+      ),      const PostCard(
+        imageUrl:
+            "https://static.vecteezy.com/system/resources/thumbnails/026/829/465/small_2x/beautiful-girl-with-autumn-leaves-photo.jpg",
+        username: 'flares',
+      ),
+      const PostCard(
+        imageUrl:
+            "https://images.unsplash.com/photo-1615752592676-f6bd84f9419d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        username: 'astropphel',
+      ),
     ];
     final colorScheme = Theme.of(context).colorScheme;
+    final theme = Theme.of(context);
     final size = MediaQuery.of(context).size;
     return Scaffold(
       body: SafeArea(
@@ -29,11 +67,40 @@ class HomePage extends StatelessWidget {
                 gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     colors: [colorScheme.secondary, colorScheme.surface])),
-            child: ListView.builder(
-                itemCount: posts.length,
-                itemBuilder: (context, index) {
-                  return posts[index];
-                })),
+            child: Column(
+              children: [
+                const SizedBox(
+                  height: 30,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Text(
+                        "Julie Iskandar",
+                        style: theme.textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.bold),
+                      ),
+                      const SizedBox(width: 20,),
+                      const CircleAvatar(
+                        backgroundImage: NetworkImage(
+                            "https://images.unsplash.com/photo-1615752592676-f6bd84f9419d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
+                      )
+                    ],
+                  ),
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
+                Expanded(
+                  child: ListView.builder(
+                      itemCount: posts.length,
+                      itemBuilder: (context, index) {
+                        return posts[index];
+                      }),
+                ),
+              ],
+            )),
       ),
     );
   }
